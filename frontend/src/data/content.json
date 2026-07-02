@@ -1,0 +1,360 @@
+{
+    "profile": {
+        "name": "Pratik Parihar",
+        "location": "Ahmedabad, Gujarat",
+        "email": "pratikparihar.me@gmail.com",
+        "phone": "7984943302",
+        "github": "https://github.com/PratikParihar24/",
+        "linkedin": "https://www.linkedin.com/in/pratik-parihar-892a022a0/",
+        "tagline": "Full-stack developer building real-time systems and AI tooling",
+        "objective": "4th-year CS undergraduate at SAL Institute (9.43 CGPA) — building real-time systems and AI tooling, with a consistent academic record and a growing stack of shipped projects. Looking for a full-stack or backend internship where I can ship things that matter."
+    },
+    "education": {
+        "degree": "B.Tech in Computer Science & Engineering",
+        "institution": "SAL Institute of Technology and Engineering Research, GTU",
+        "duration": "2023 – 2027",
+        "cgpa": "9.43 / 10",
+        "highlights": [
+            "100% Merit Scholarship (TFWS): Awarded a full tuition fee waiver seat based on state-level merit rank.",
+            "Devang Mehta IT Award: Top Ranker, CSE Branch (2022–23, 2023–24).",
+            "Industry-Led Minor: Artificial Intelligence & Machine Learning — Infosys Springboard × GTU"
+        ],
+        "priorEducation": [
+            {
+                "level": "Higher Secondary (12th)",
+                "board": "GSEB",
+                "score": "75%",
+                "duration": "2022–2023",
+                "school": "Gayatri Vidhyalay, Khodiyar Nagar, Ahmedabad"
+            },
+            {
+                "level": "Secondary (10th)",
+                "board": "GSEB",
+                "score": "87%",
+                "duration": "2020–2021",
+                "school": "Gayatri Vidhyalay, Khodiyar Nagar, Ahmedabad"
+            }
+        ]
+    },
+    "projects": [
+        {
+            "id": "biasbench",
+            "title": "BiasBench",
+            "accentUse": "primary",
+            "oneLiner": "Full-stack AI forensics tool that prompts multiple LLMs simultaneously and evaluates responses for bias via an automated Judge AI.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "SQLite",
+                "OpenRouter API",
+                "Vercel",
+                "Render"
+            ],
+            "liveUrl": "bias-bench.vercel.app",
+            "repoUrl": "https://github.com/PratikParihar24/Bias-Bench",
+            "decisions": [
+                {
+                    "decision": "Unified Gemini, Llama & Mistral into one comparison interface",
+                    "reasoning": "Exposes differing safety filters and corporate bias across LLMs side-by-side, rather than requiring separate manual checks."
+                },
+                {
+                    "decision": "Used an automated Judge AI instead of manual scoring",
+                    "reasoning": "Makes bias evaluation repeatable and scalable across many prompts instead of relying on subjective one-off review."
+                },
+                {
+                    "decision": "[ADD DECISION 3]",
+                    "reasoning": "[ADD REASONING]"
+                },
+                {
+                    "decision": "[ADD DECISION 4 — OPTIONAL]",
+                    "reasoning": "[ADD REASONING — OPTIONAL]"
+                }
+            ]
+        },
+        {
+            "id": "ngsc",
+            "title": "Nanosat Ground Station Controller (NGSC)",
+            "accentUse": "primary",
+            "oneLiner": "Satellite mission control simulator — real-time orbital tracking, pass prediction & telemetry decoding via live TLE data.",
+            "tech": [
+                "Python",
+                "Streamlit",
+                "Skyfield",
+                "Plotly",
+                "Pandas"
+            ],
+            "liveUrl": "https://nanosatground-stationcontroller-dufpq23tzfxryrcbq9ivzv.streamlit.app/",
+            "repoUrl": "https://github.com/PratikParihar24/nanosat_ground-station_controller",
+            "decisions": [
+                {
+                    "decision": "Used SGP4 orbital propagation via Skyfield with live CelesTrak TLE data",
+                    "reasoning": "Ensures orbital positions reflect real, current satellite tracking data rather than static/simulated coordinates."
+                },
+                {
+                    "decision": "Built a 24-hour pass prediction engine with CSV telemetry logging",
+                    "reasoning": "Gives users a practical forecasting window while preserving a persistent, exportable data trail."
+                },
+                {
+                    "decision": "Split the system into modular physics, hardware, and UI layers",
+                    "reasoning": "Keeps orbital math, simulated hardware state, and the interface independently testable and swappable."
+                },
+                {
+                    "decision": "[ADD DECISION 4 — OPTIONAL]",
+                    "reasoning": "[ADD REASONING — OPTIONAL]"
+                }
+            ]
+        },
+        {
+            "id": "applyagent",
+            "title": "ApplyAgent",
+            "accentUse": "primary",
+            "oneLiner": "AI-powered job application automation — semantic resume parsing, company discovery, personalized outreach generation.",
+            "tech": [
+                "Python",
+                "FastAPI",
+                "ChromaDB",
+                "LangChain",
+                "React",
+                "Socket.io"
+            ],
+            "liveUrl": "[APPLYAGENT_LIVE_URL]",
+            "repoUrl": "[APPLYAGENT_REPO_URL]",
+            "decisions": [
+                {
+                    "decision": "Built a RAG pipeline via ChromaDB + sentence-transformers",
+                    "reasoning": "Enables semantic matching between resume content and company/job data instead of brittle keyword matching."
+                },
+                {
+                    "decision": "Used SSE-streamed company hunt with real-time shortlisting",
+                    "reasoning": "Lets users see results populate live instead of waiting on a single blocking request."
+                },
+                {
+                    "decision": "Generated LLM-tailored cover letters per application",
+                    "reasoning": "Produces personalized outreach at scale without manually rewriting each letter."
+                },
+                {
+                    "decision": "[ADD DECISION 4 — OPTIONAL]",
+                    "reasoning": "[ADD REASONING — OPTIONAL]"
+                }
+            ]
+        },
+        {
+            "id": "pattern-vault",
+            "title": "Pattern Vault",
+            "accentUse": "primary",
+            "oneLiner": "Note-taking app disguised as a trivia game — stealth pattern-recognition auth unlocks a hidden private workspace.",
+            "tech": [
+                "Node.js",
+                "Express.js",
+                "MongoDB Atlas",
+                "JWT",
+                "HTML5",
+                "CSS3",
+                "Render"
+            ],
+            "liveUrl": "daily-brain-teaser.onrender.com",
+            "repoUrl": "https://github.com/PratikParihar24/Pattern_Vault",
+            "decisions": [
+                {
+                    "decision": "Built a client-side Virtual Router in vanilla DOM",
+                    "reasoning": "Allows seamless switching between the public decoy quiz and the private authenticated vault with no page reloads."
+                },
+                {
+                    "decision": "Used stateless JWT auth with bcrypt hashing",
+                    "reasoning": "Keeps authentication lightweight and secure without server-side session storage."
+                },
+                {
+                    "decision": "Disguised authentication as a trivia game via pattern recognition",
+                    "reasoning": "Hides the existence of the private workspace entirely from anyone who isn't the intended user."
+                },
+                {
+                    "decision": "[ADD DECISION 4 — OPTIONAL]",
+                    "reasoning": "[ADD REASONING — OPTIONAL]"
+                }
+            ]
+        },
+        {
+            "id": "snap-game",
+            "title": "Snap Game",
+            "accentUse": "primary",
+            "oneLiner": "Real-time 2-player card game — synchronized state, anti-cheat logic, full mobile responsiveness.",
+            "tech": [
+                "Node.js",
+                "Express.js",
+                "Socket.io",
+                "HTML5",
+                "CSS3",
+                "Render"
+            ],
+            "liveUrl": "cartoon-snap.onrender.com/",
+            "repoUrl": "https://github.com/PratikParihar24/cartoon_snap",
+            "decisions": [
+                {
+                    "decision": "Used bidirectional game state sync via Socket.io",
+                    "reasoning": "Keeps both players' views consistent in real time with zero desync."
+                },
+                {
+                    "decision": "Implemented in-memory room management",
+                    "reasoning": "Avoids database overhead for short-lived game sessions, keeping latency low."
+                },
+                {
+                    "decision": "Added anti-cheat logic server-side",
+                    "reasoning": "Prevents client-side manipulation of game state from affecting the actual match outcome."
+                },
+                {
+                    "decision": "[ADD DECISION 4 — OPTIONAL]",
+                    "reasoning": "[ADD REASONING — OPTIONAL]"
+                }
+            ]
+        }
+    ],
+    "skills": {
+        "Languages": [
+            "Python",
+            "JavaScript",
+            "Java",
+            "C",
+            "HTML5",
+            "CSS3"
+        ],
+        "Frameworks & Libraries": [
+            "Node.js",
+            "Express.js",
+            "FastAPI",
+            "Streamlit",
+            "Socket.io",
+            "Tailwind CSS",
+            "LangChain"
+        ],
+        "Databases": [
+            "MongoDB Atlas",
+            "SQLite",
+            "SQL",
+            "ChromaDB"
+        ],
+        "Tools & Platforms": [
+            "Git",
+            "GitHub",
+            "Chrome Extension APIs",
+            "Vercel",
+            "Render",
+            "Postman"
+        ],
+        "Concepts": [
+            "REST APIs",
+            "WebSockets",
+            "Real-time Systems",
+            "Client-Server Architecture",
+            "Async Programming"
+        ]
+    },
+    "achievements": [
+        {
+            "id": "isro-sac",
+            "size": "large",
+            "stat": "38/500+",
+            "label": "Selected for ISRO Space Applications Centre (SAC) — Deep-Dive Exposure Program",
+            "date": "January 2026"
+        },
+        {
+            "id": "devang-mehta",
+            "size": "medium",
+            "stat": "Top Rank",
+            "label": "Devang Mehta IT Award — Top Ranker, CSE Branch",
+            "date": "2022–23, 2023–24"
+        },
+        {
+            "id": "merit-scholarship",
+            "size": "medium",
+            "stat": "100%",
+            "label": "Merit Scholarship (TFWS) — Full tuition fee waiver on state-level merit rank",
+            "date": null
+        },
+        {
+            "id": "cgpa",
+            "size": "medium",
+            "stat": "9.43/10",
+            "label": "CGPA — B.Tech Computer Science, GTU",
+            "date": null
+        },
+        {
+            "id": "gtu-ideathon",
+            "size": "small",
+            "stat": "Team Lead",
+            "label": "GTU Ideathon 2024 — Led ideation, team coordination, and final pitch presentation",
+            "date": "2024"
+        },
+        {
+            "id": "sparkathon",
+            "size": "small",
+            "stat": "Team Lead",
+            "label": "Sparkathon 2024 (Walmart, Online) — National-level retail innovation challenge",
+            "date": "2024"
+        }
+    ],
+    "certifications": [
+        {
+            "title": "Agentic AI: MCP for Production Automation",
+            "issuer": "HuggingFace Academy",
+            "date": "May 2025"
+        },
+        {
+            "title": "Applied Generative AI Certification",
+            "issuer": "Infosys Springboard",
+            "date": "2026"
+        },
+        {
+            "title": "Principles of Generative AI",
+            "issuer": "Infosys Springboard",
+            "date": "2026"
+        },
+        {
+            "title": "OpenAI GPT-3 for Developers",
+            "issuer": "Infosys Springboard",
+            "date": "2026"
+        },
+        {
+            "title": "Introduction to Deep Learning",
+            "issuer": "Infosys Springboard",
+            "date": "June 2025"
+        },
+        {
+            "title": "Computer Vision 101",
+            "issuer": "Infosys Springboard",
+            "date": "June 2025"
+        },
+        {
+            "title": "Artificial Intelligence Primer",
+            "issuer": "Infosys Springboard",
+            "date": "June 2025"
+        }
+    ],
+    "extracurriculars": [
+        "Playing Flute",
+        "Avid reader; a curious soul with strong research orientation across diverse topics",
+        "Structured documentation habit; organized knowledge systems",
+        "Cricket & badminton"
+    ],
+    "languages": [
+        {
+            "name": "English",
+            "level": "Proficient"
+        },
+        {
+            "name": "Hindi",
+            "level": "Proficient"
+        },
+        {
+            "name": "Gujarati",
+            "level": "Native"
+        }
+    ],
+    "contact": {
+        "formEndpoint": "  ",
+        "socialLinks": {
+            "github": "https://github.com/PratikParihar24/",
+            "linkedin": "https://www.linkedin.com/in/pratik-parihar-892a022a0/",
+            "email": "pratikparihar.me@gmail.com"
+        }
+    }
+}

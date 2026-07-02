@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* 
+  IMPORTANT: Tailwind v4's @theme block resolves values at BUILD time.
+  We only put static token NAMES here so Tailwind generates utility classes.
+  The actual VALUES come from :root / .dark CSS variables below.
+*/
+@theme {
+  --color-bg-theme: #F5F5F7;
+  --color-surface: rgba(255, 255, 255, 0.6);
+  --color-accent: #22C55E;
+  --color-secondary: #475569;
+  --color-text-main: #0F172A;
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Tell Tailwind v4 that dark: utilities should match the .dark class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===== LIGHT THEME (default) ===== */
+:root {
+  --bg-color: #F5F5F7;
+  --surface-color: rgba(255, 255, 255, 0.65);
+  --surface-solid: #FFFFFF;
+  --navbar-bg: rgba(245, 245, 247, 0.85);
+  --accent-color: #22C55E;
+  --secondary-color: #475569;
+  --text-main: #0F172A;
+  --glow-shadow: 0 0 40px rgba(34, 197, 94, 0.25);
+  --glass-blur: blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --bg-radial-glow: 
+    radial-gradient(ellipse at 30% 20%, rgba(34,197,94,0.12) 0%, rgba(245,245,247,0) 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(34,197,94,0.08) 0%, rgba(245,245,247,0) 50%);
+}
+
+/* ===== DARK THEME ===== */
+.dark {
+  --bg-color: #09090B;
+  --surface-color: rgba(255, 255, 255, 0.06);
+  --surface-solid: #18181B;
+  --navbar-bg: rgba(9, 9, 11, 0.85);
+  --accent-color: #22C55E;
+  --secondary-color: #A1A1AA;
+  --text-main: #FAFAFA;
+  --glow-shadow: 0 0 50px rgba(34, 197, 94, 0.35);
+  --glass-blur: blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --bg-radial-glow:
+    radial-gradient(ellipse at 30% 20%, rgba(34,197,94,0.15) 0%, rgba(9,9,11,0) 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(34,197,94,0.10) 0%, rgba(9,9,11,0) 60%);
+}
+
+/* ===== BASE ===== */
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: var(--bg-radial-glow);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+}
+
+p, span, a, li, label, input, textarea {
+  color: var(--text-main);
+}
+
+/* ===== GLASS PANEL ===== */
+.glass-panel {
+  background: var(--surface-color);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+}
+
+/* ===== GLOW ===== */
+.glow-effect {
+  box-shadow: var(--glow-shadow);
+  transition: box-shadow 0.3s ease;
+}
+.glow-hover:hover {
+  box-shadow: var(--glow-shadow);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 3px;
+}
