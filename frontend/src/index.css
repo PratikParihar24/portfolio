@@ -39,7 +39,7 @@
 /* ===== DARK THEME ===== */
 .dark {
   --bg-color: #09090B;
-  --surface-color: rgba(255, 255, 255, 0.06);
+  --surface-color: rgba(9, 9, 11, 0.6);
   --surface-solid: #18181B;
   --navbar-bg: rgba(9, 9, 11, 0.85);
   --accent-color: #22C55E;

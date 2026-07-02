@@ -89,6 +89,7 @@ export default function ContactSection() {
           href={contact.socialLinks.github}
           target="_blank" 
           rel="noreferrer"
+          aria-label="GitHub Profile"
           className="flex items-center gap-2 px-5 py-3 rounded-xl transition-all hover:scale-105 hover:shadow-lg glass-panel"
         >
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" className="w-5 h-5" />
@@ -99,6 +100,7 @@ export default function ContactSection() {
           href={contact.socialLinks.linkedin}
           target="_blank" 
           rel="noreferrer"
+          aria-label="LinkedIn Profile"
           className="flex items-center gap-2 px-5 py-3 rounded-xl transition-all hover:scale-105 hover:shadow-lg glass-panel"
         >
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" className="w-5 h-5" />

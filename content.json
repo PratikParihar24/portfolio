@@ -60,14 +60,6 @@
                 {
                     "decision": "Used an automated Judge AI instead of manual scoring",
                     "reasoning": "Makes bias evaluation repeatable and scalable across many prompts instead of relying on subjective one-off review."
-                },
-                {
-                    "decision": "[ADD DECISION 3]",
-                    "reasoning": "[ADD REASONING]"
-                },
-                {
-                    "decision": "[ADD DECISION 4 — OPTIONAL]",
-                    "reasoning": "[ADD REASONING — OPTIONAL]"
                 }
             ]
         },
@@ -97,10 +89,6 @@
                 {
                     "decision": "Split the system into modular physics, hardware, and UI layers",
                     "reasoning": "Keeps orbital math, simulated hardware state, and the interface independently testable and swappable."
-                },
-                {
-                    "decision": "[ADD DECISION 4 — OPTIONAL]",
-                    "reasoning": "[ADD REASONING — OPTIONAL]"
                 }
             ]
         },
@@ -117,8 +105,8 @@
                 "React",
                 "Socket.io"
             ],
-            "liveUrl": "[APPLYAGENT_LIVE_URL]",
-            "repoUrl": "[APPLYAGENT_REPO_URL]",
+            "liveUrl": "#",
+            "repoUrl": "#",
             "decisions": [
                 {
                     "decision": "Built a RAG pipeline via ChromaDB + sentence-transformers",
@@ -131,10 +119,6 @@
                 {
                     "decision": "Generated LLM-tailored cover letters per application",
                     "reasoning": "Produces personalized outreach at scale without manually rewriting each letter."
-                },
-                {
-                    "decision": "[ADD DECISION 4 — OPTIONAL]",
-                    "reasoning": "[ADD REASONING — OPTIONAL]"
                 }
             ]
         },
@@ -166,10 +150,6 @@
                 {
                     "decision": "Disguised authentication as a trivia game via pattern recognition",
                     "reasoning": "Hides the existence of the private workspace entirely from anyone who isn't the intended user."
-                },
-                {
-                    "decision": "[ADD DECISION 4 — OPTIONAL]",
-                    "reasoning": "[ADD REASONING — OPTIONAL]"
                 }
             ]
         },
@@ -200,10 +180,6 @@
                 {
                     "decision": "Added anti-cheat logic server-side",
                     "reasoning": "Prevents client-side manipulation of game state from affecting the actual match outcome."
-                },
-                {
-                    "decision": "[ADD DECISION 4 — OPTIONAL]",
-                    "reasoning": "[ADD REASONING — OPTIONAL]"
                 }
             ]
         }

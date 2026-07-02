@@ -22,7 +22,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      className="relative sticky"
+      className="relative md:sticky"
       style={{ 
         top: `calc(5rem + ${idx * 1.5}rem)`, 
         zIndex: idx + 10,
@@ -121,6 +121,7 @@ export default function ProjectsSection() {
         Projects
         <button 
           onClick={() => setActiveContext("I focus on the engineering decisions rather than just listing tech stacks. Knowing *why* a tool was used is more important than knowing it exists.")} 
+          aria-label="Toggle engineering context"
           className="hover:text-accent transition-colors"
           style={{ color: 'var(--secondary-color)' }}
           title="Why this format?"
@@ -133,6 +134,10 @@ export default function ProjectsSection() {
         {projects.map((project, idx) => (
           <ProjectCard key={project.id} project={project} idx={idx} />
         ))}
+      </div>
+
+      <div className="mt-32 text-center text-lg italic" style={{ color: 'var(--secondary-color)' }}>
+        Behind these projects is a core set of skills... ↓
       </div>
     </section>
   )

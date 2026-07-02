@@ -15,9 +15,21 @@ export default function HeroSection() {
       >
         <h1 className="text-5xl md:text-7xl font-bold mb-6 text-text-main">{profile.name}</h1>
         <p className="text-xl md:text-2xl text-secondary mb-8">{profile.tagline}</p>
-        <div className="flex gap-4 justify-center mb-8">
-          <a href="#projects" className="px-6 py-3 bg-accent text-bg-theme rounded-full glow-effect hover:glow-hover transition-all font-semibold">View Projects</a>
-          <a href="#contact" className="px-6 py-3 glass-panel hover:bg-surface transition-all font-semibold text-text-main">Contact Me</a>
+        <div className="flex gap-4 justify-center mb-12">
+          <a 
+            href="#projects" 
+            className="px-6 py-3 rounded-full font-semibold glow-effect hover:glow-hover transition-all"
+            style={{ backgroundColor: 'var(--accent-color)', color: '#09090B' }}
+          >
+            View Projects
+          </a>
+          <a 
+            href="#contact" 
+            className="px-6 py-3 rounded-full font-semibold transition-all hover:scale-105 glass-panel"
+            style={{ color: 'var(--text-main)' }}
+          >
+            Contact Me
+          </a>
         </div>
         
         {/* Real-time GitHub Activity Feed */}

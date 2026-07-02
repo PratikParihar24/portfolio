@@ -55,6 +55,7 @@ export default function GithubFeed() {
           href="https://github.com/PratikParihar24" 
           target="_blank" 
           rel="noreferrer"
+          aria-label="GitHub Profile"
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all hover:scale-105"
           style={{ 
             backgroundColor: 'var(--surface-color)', 

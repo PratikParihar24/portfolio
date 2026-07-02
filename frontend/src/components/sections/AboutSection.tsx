@@ -1,9 +1,6 @@
-import content from '../../data/content.json'
 import { motion } from 'framer-motion'
 
 export default function AboutSection() {
-  const { profile } = content
-
   return (
     <section id="about" className="py-20 max-w-4xl mx-auto px-6">
       <motion.div 
@@ -13,7 +10,11 @@ export default function AboutSection() {
         transition={{ duration: 0.8 }}
         className="text-center py-10"
       >
-        <p 
+        <motion.p 
+          initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, margin: "-100px" }}
           className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.15]"
           style={{ color: 'var(--text-main)' }}
         >
@@ -23,7 +24,17 @@ export default function AboutSection() {
           <br className="hidden md:block" />
           <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>with a focus on </span>
           shipping things that matter.
-        </p>
+        </motion.p>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 1 }}
+          viewport={{ once: true }}
+          className="mt-12 text-lg md:text-xl font-medium"
+          style={{ color: 'var(--secondary-color)' }}
+        >
+          Here is what I've been building recently ↓
+        </motion.p>
       </motion.div>
     </section>
   )
