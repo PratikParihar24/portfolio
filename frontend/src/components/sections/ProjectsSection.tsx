@@ -9,13 +9,10 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
   
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    // Start tracking when the top of the card hits the top of the viewport
     offset: ["start start", "start -100%"]
   })
 
-  // Fade out content when scrolling past (receding state)
   const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
-  // Slightly scale down the card to create depth
   const cardScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.97])
 
   return (
@@ -27,46 +24,63 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
       transition={{ duration: 0.6 }}
       className="relative sticky"
       style={{ 
-        top: `calc(6rem + ${idx * 5.5}rem)`, 
-        zIndex: idx,
+        top: `calc(5rem + ${idx * 1.5}rem)`, 
+        zIndex: idx + 10,
         scale: cardScale
       }}
     >
-      <div 
-        className="p-8 md:p-12 shadow-2xl rounded-2xl border border-secondary transition-colors"
-        style={{ backgroundColor: 'var(--surface-solid)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
-      >
+      <div className="glass-panel p-8 md:p-12 shadow-2xl">
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div className="flex-1">
-            <h3 className="text-3xl font-bold text-text-main mb-2">{project.title}</h3>
-            <motion.p style={{ opacity: contentOpacity }} className="text-secondary text-lg max-w-2xl">
-              {project.oneLiner}
-            </motion.p>
-          </div>
-          <div className="flex gap-3 relative z-10">
+        {/* Title row + links — always visible even when stacked, high z-index */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 relative" style={{ zIndex: 50 }}>
+          <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-main)' }}>{project.title}</h3>
+          <div className="flex gap-3 shrink-0">
             {project.repoUrl && !project.repoUrl.includes('[') && (
-              <a href={project.repoUrl} target="_blank" rel="noreferrer" className="p-3 bg-bg-theme border border-secondary rounded-full text-text-main hover:text-accent transition-colors">
-                <Code size={20} />
+              <a 
+                href={project.repoUrl} target="_blank" rel="noreferrer" 
+                className="p-3 rounded-full border transition-all hover:scale-110"
+                style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+              >
+                <Code size={18} />
               </a>
             )}
             {project.liveUrl && !project.liveUrl.includes('[') && (
-              <a href={project.liveUrl.startsWith('http') ? project.liveUrl : `https://${project.liveUrl}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3 bg-accent text-bg-theme rounded-full font-bold glow-effect hover:glow-hover transition-all">
+              <a 
+                href={project.liveUrl.startsWith('http') ? project.liveUrl : `https://${project.liveUrl}`} 
+                target="_blank" rel="noreferrer" 
+                className="flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm"
+                style={{ color: '#09090B' }}
+              >
                 <span>Live</span>
-                <ExternalLink size={18} />
+                <ExternalLink size={16} />
               </a>
             )}
           </div>
         </div>
-        
+
+        {/* Content that fades when card recedes */}
         <motion.div style={{ opacity: contentOpacity }}>
-          <div className="flex flex-wrap gap-2 mb-10">
+          <p className="text-lg mb-6 max-w-2xl" style={{ color: 'var(--secondary-color)' }}>
+            {project.oneLiner}
+          </p>
+
+          <div className="flex flex-wrap gap-2 mb-8">
             {project.tech.map((t: string) => (
-              <span key={t} className="px-3 py-1 bg-surface border border-secondary rounded-md text-xs font-medium text-text-main">{t}</span>
+              <span 
+                key={t} 
+                className="px-3 py-1 rounded-md text-xs font-semibold"
+                style={{ 
+                  backgroundColor: 'var(--surface-color)', 
+                  border: '1px solid var(--glass-border)',
+                  color: 'var(--text-main)'
+                }}
+              >
+                {t}
+              </span>
             ))}
           </div>
 
-          <div className="mt-8 border-l-2 border-secondary pl-6 space-y-8 relative">
+          <div className="border-l-2 pl-6 space-y-6 relative" style={{ borderColor: 'var(--glass-border)' }}>
             {project.decisions.map((decision: any, i: number) => {
               if (decision.decision.includes('[ADD DECISION')) return null;
               return (
@@ -79,8 +93,8 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
                   className="relative"
                 >
                   <div className="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-accent glow-effect"></div>
-                  <h4 className="font-bold text-text-main text-lg mb-1">{decision.decision}</h4>
-                  <p className="text-secondary">{decision.reasoning}</p>
+                  <h4 className="font-bold text-lg mb-1" style={{ color: 'var(--text-main)' }}>{decision.decision}</h4>
+                  <p style={{ color: 'var(--secondary-color)' }}>{decision.reasoning}</p>
                 </motion.div>
               )
             })}
@@ -101,12 +115,14 @@ export default function ProjectsSection() {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-100px" }}
-        className="text-3xl font-bold mb-16 text-text-main flex items-center gap-3"
+        className="text-3xl font-bold mb-16 flex items-center gap-3"
+        style={{ color: 'var(--text-main)' }}
       >
         Projects
         <button 
           onClick={() => setActiveContext("I focus on the engineering decisions rather than just listing tech stacks. Knowing *why* a tool was used is more important than knowing it exists.")} 
-          className="text-secondary hover:text-accent transition-colors"
+          className="hover:text-accent transition-colors"
+          style={{ color: 'var(--secondary-color)' }}
           title="Why this format?"
         >
           <Info size={20} />

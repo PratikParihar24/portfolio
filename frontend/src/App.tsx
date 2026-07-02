@@ -12,7 +12,15 @@ import { Moon, Sun } from 'lucide-react'
 const NavBar = () => {
   const { theme, toggleTheme } = useAppStore()
   return (
-    <nav className="navbar fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center">
+    <nav 
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center border-b"
+      style={{ 
+        backgroundColor: 'var(--navbar-bg)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderColor: 'var(--glass-border)'
+      }}
+    >
       <div className="font-bold text-xl tracking-tight" style={{ color: 'var(--text-main)' }}>
         Pratik
       </div>
