@@ -2,11 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import Resume from './pages/Resume'
 import { useAppStore } from './store/useAppStore'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ContextualGuide from './components/ui/ContextualGuide'
 import CommandPalette from './components/ui/CommandPalette'
 import { Moon, Sun, Command } from 'lucide-react'
-import React, { useEffect } from 'react'
 
 import Scene from './components/3d/Scene'
 
@@ -26,7 +25,18 @@ const NavBar = () => {
       <div className="font-bold text-xl tracking-tight" style={{ color: 'var(--text-main)' }}>
         Pratik
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
+        <a 
+          href="#contact" 
+          className="px-4 py-1.5 rounded-full border text-xs md:text-sm font-bold transition-all hover:scale-105"
+          style={{ 
+            backgroundColor: 'var(--surface-color)', 
+            borderColor: 'var(--glass-border)',
+            color: 'var(--text-main)' 
+          }}
+        >
+          Contact Me
+        </a>
         <button 
           onClick={() => setCommandOpen(true)}
           aria-label="Open Command Palette"
@@ -73,8 +83,10 @@ function App() {
       <Scene />
       <ContextualGuide />
       <CommandPalette />
-      <div className="relative z-10">
+      <div className="relative z-30">
         <NavBar />
+      </div>
+      <div className="relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/resume" element={<Resume />} />

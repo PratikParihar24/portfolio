@@ -28,10 +28,11 @@ export default function Scene() {
     <div 
       ref={containerRef}
       className="fixed inset-0 pointer-events-none"
-      style={{ zIndex: 0 }}
+      style={{ zIndex: 20 }}
     >
       {ready && (
         <Canvas
+          eventSource={typeof document !== 'undefined' ? document.body : undefined}
           camera={{ position: [0, 0, 5], fov: 45 }}
           shadows
           gl={{ 
@@ -39,7 +40,7 @@ export default function Scene() {
             antialias: true,
             powerPreference: 'high-performance'
           }}
-          style={{ background: 'transparent' }}
+          style={{ background: 'transparent', pointerEvents: 'none' }}
         >
           <LightingRig />
           <AvatarContainer />

@@ -13,14 +13,12 @@ export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
   const targetPos = useRef(new THREE.Vector3(2.5, -1.5, -0.5))
   const moveTimer = useRef(0)
 
-  // Safe coordinates to roam (keeps it along the edges)
+  // Safe coordinates to roam (keeps it strictly on the right side to avoid colliding with text)
   const safeSpots = [
     [2.8, -1.5, -0.5],   // Bottom right
-    [2.8, 1.5, -0.5],    // Top right
-    [-2.8, 1.5, -0.5],   // Top left
-    [-2.8, -1.5, -0.5],  // Bottom left
-    [2.8, 0, -0.5],      // Mid right
-    [-2.8, 0, -0.5],     // Mid left
+    [3.2, -0.5, -0.5],   // Mid right (lower)
+    [3.0, 1.2, -0.5],    // Top right (far right)
+    [2.6, 0.5, -0.5],    // Mid right (upper)
   ]
 
   useFrame((state, delta) => {

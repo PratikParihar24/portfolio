@@ -1,52 +1,80 @@
 import { motion } from 'framer-motion'
 
 export default function AboutSection() {
+  const sentence = "4th-year CS undergrad building real-time systems & AI tooling with a focus on shipping things that matter."
+  const words = sentence.split(" ")
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.04
+      }
+    }
+  }
+
+  const wordVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 15,
+      filter: "blur(6px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        damping: 20,
+        stiffness: 120
+      }
+    }
+  }
+
   return (
-    <section id="about" className="py-20 max-w-4xl mx-auto px-6">
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className="text-center py-10"
-      >
-        <motion.div
+    <section id="about" className="py-20 max-w-5xl mx-auto px-6">
+      <div className="text-center py-10">
+        <motion.div 
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
-          className="text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.2]"
+          className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold tracking-tight leading-[1.3] text-left md:text-center flex flex-wrap md:justify-center gap-x-3 gap-y-1.5"
           style={{ color: 'var(--text-main)' }}
         >
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-            <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>4th-year CS undergrad building </span>
-          </motion.div>
-          
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-            real-time systems <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>&</span> AI tooling
-          </motion.div>
-          
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-            <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>with a focus on </span>
-          </motion.div>
-          
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-            shipping things that matter.
-          </motion.div>
+          {words.map((word, index) => {
+            // "real-time systems & AI tooling" highlight
+            const isHighlight = index >= 4 && index <= 8;
+            // "shipping things that matter" accent style
+            const isEmphasis = index >= 13 && index <= 16;
+
+            return (
+              <motion.span 
+                key={index} 
+                variants={wordVariants}
+                className="inline-block"
+                style={{ 
+                  color: isHighlight ? 'var(--text-highlight)' : 'inherit',
+                  fontWeight: isHighlight ? 800 : (isEmphasis ? 600 : 400),
+                  textShadow: isHighlight ? '0 0 20px rgba(0, 229, 255, 0.2)' : 'none'
+                }}
+              >
+                {word}
+              </motion.span>
+            )
+          })}
         </motion.div>
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
           viewport={{ once: true }}
-          className="mt-12 text-lg md:text-xl font-medium"
+          className="mt-16 text-lg md:text-xl font-medium"
           style={{ color: 'var(--secondary-color)' }}
         >
           Here is what I've been building recently ↓
         </motion.p>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -98,7 +98,7 @@ export default function ProjectsSection() {
   const setActiveContext = useAppStore(state => state.setActiveContext)
 
   return (
-    <section id="projects" className="py-20 max-w-5xl mx-auto px-6">
+    <section id="projects" className="pt-20 pb-64 max-w-5xl mx-auto px-6">
       <motion.h2 
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
