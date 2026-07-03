@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Resume from './pages/Resume'
 import { useAppStore } from './store/useAppStore'
 import React, { useEffect } from 'react'
+import { useMotionValue, useSpring, motion } from 'framer-motion'
 import ContextualGuide from './components/ui/ContextualGuide'
 import CommandPalette from './components/ui/CommandPalette'
 import { Moon, Sun, Command } from 'lucide-react'
@@ -81,7 +82,7 @@ const NavBar = () => {
           target="_blank" 
           rel="noreferrer"
           aria-label="GitHub"
-          className="p-2 rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+          className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
           style={{ 
             backgroundColor: 'var(--surface-color)', 
             borderColor: 'var(--glass-border)',
@@ -95,7 +96,7 @@ const NavBar = () => {
           target="_blank" 
           rel="noreferrer"
           aria-label="LinkedIn"
-          className="p-2 rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+          className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
           style={{ 
             backgroundColor: 'var(--surface-color)', 
             borderColor: 'var(--glass-border)',
@@ -106,7 +107,7 @@ const NavBar = () => {
         </a>
         <a 
           href="#contact" 
-          className="px-4 py-1.5 rounded-full border text-xs md:text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
+          className="px-4 py-1.5 min-h-[44px] flex items-center rounded-full border text-xs md:text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
           style={{ 
             backgroundColor: 'var(--surface-color)', 
             borderColor: 'var(--glass-border)',
@@ -118,7 +119,7 @@ const NavBar = () => {
         <button 
           onClick={() => setCommandOpen(true)}
           aria-label="Open Command Palette"
-          className="p-2 rounded-full border transition-all hover:scale-105 md:hidden"
+          className="w-11 h-11 rounded-full border transition-all hover:scale-105 md:hidden flex items-center justify-center"
           style={{ 
             backgroundColor: 'var(--surface-color)', 
             borderColor: 'var(--glass-border)',
@@ -130,7 +131,7 @@ const NavBar = () => {
         <button 
           onClick={toggleTheme} 
           aria-label="Toggle dark mode"
-          className="p-2 rounded-full border transition-all hover:scale-105"
+          className="w-11 h-11 md:w-auto md:h-auto md:p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center"
           style={{ 
             backgroundColor: 'var(--surface-color)', 
             borderColor: 'var(--glass-border)',
@@ -141,6 +142,47 @@ const NavBar = () => {
         </button>
       </div>
     </nav>
+  )
+}
+
+function AmbientFlashlight() {
+  const mouseX = useMotionValue(-1000)
+  const mouseY = useMotionValue(-1000)
+
+  // Smooth springs for cursor movement
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 })
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 })
+
+  useEffect(() => {
+    let frameId: number
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(frameId)
+      frameId = requestAnimationFrame(() => {
+        // Offset by half of flashlight width (40vw / 2 = 20vw of screen width)
+        const radius = window.innerWidth * 0.2
+        mouseX.set(e.clientX - radius)
+        mouseY.set(e.clientY - radius)
+      })
+    }
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      cancelAnimationFrame(frameId)
+    }
+  }, [mouseX, mouseY])
+
+  return (
+    <motion.div
+      style={{
+        x: springX,
+        y: springY,
+        width: '40vw',
+        height: '40vw',
+        background: 'radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 60%)',
+        filter: 'blur(80px)',
+      }}
+      className="fixed top-0 left-0 pointer-events-none rounded-full z-[-1]"
+    />
   )
 }
 
@@ -158,6 +200,7 @@ function App() {
 
   return (
     <Router>
+      <AmbientFlashlight />
       <Scene />
       <ContextualGuide />
       <CommandPalette />

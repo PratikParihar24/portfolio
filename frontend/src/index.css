@@ -25,15 +25,15 @@
 /* ===== LIGHT THEME (default) ===== */
 :root {
   --bg-color: #F5F5F7;
-  --surface-color: rgba(255, 255, 255, 0.65);
+  --surface-color: rgba(255, 255, 255, 0.05);
   --surface-solid: #FFFFFF;
   --navbar-bg: rgba(245, 245, 247, 0.85);
   --accent-color: #22C55E;
   --secondary-color: #475569;
   --text-main: #0F172A;
-  --glow-shadow: 0 0 40px rgba(34, 197, 94, 0.25);
+  --glow-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
   --glass-blur: blur(16px);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(0, 0, 0, 0.08);
   --text-highlight: var(--accent-color);
   --bg-radial-glow: 
     radial-gradient(ellipse at 30% 20%, rgba(34,197,94,0.12) 0%, rgba(245,245,247,0) 50%),
@@ -43,13 +43,13 @@
 /* ===== DARK THEME ===== */
 .dark {
   --bg-color: #09090B;
-  --surface-color: rgba(9, 9, 11, 0.6);
+  --surface-color: rgba(39, 39, 42, 0.4);
   --surface-solid: #18181B;
   --navbar-bg: rgba(9, 9, 11, 0.85);
   --accent-color: #22C55E;
   --secondary-color: #A1A1AA;
   --text-main: #FAFAFA;
-  --glow-shadow: 0 0 50px rgba(34, 197, 94, 0.35);
+  --glow-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
   --glass-blur: blur(16px);
   --glass-border: rgba(255, 255, 255, 0.08);
   --text-highlight: var(--accent-color);
@@ -94,12 +94,19 @@ p, span, a, li, label, input, textarea {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 /* ===== GLOW ===== */
 .glow-effect {
+  box-shadow: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+.glow-effect:hover {
   box-shadow: var(--glow-shadow);
-  transition: box-shadow 0.3s ease;
+}
+.glow-hover {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 .glow-hover:hover {
   box-shadow: var(--glow-shadow);

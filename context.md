@@ -18,34 +18,39 @@ This is a modern, single-page portfolio website for Pratik Parihar, a 4th-year C
 4. **Stacked Scroll Projects (`ProjectsSection.tsx`):** Sticky positioning to create a "deck of cards" stacking effect as the user scrolls through projects.
 5. **Contextual Guide (`useAppStore.ts`):** A global state tooltip system that displays engineering rationale ("Why this tool?") when the user clicks info icons.
 6. **Live GitHub Activity (`GithubFeed.tsx`):** Fetches and displays recent commits, PRs, and stars directly from the GitHub API.
+7. **Developer Utilities Sub-layout (`ProjectsSection.tsx`):** A visually distinct grid layout featuring compact card designs for utilities like FocusFlow and CSS Gradient Generator.
+8. **Cursor-Linked Ambient Backlight (`App.tsx`):** A global mouse-tracking radial backlight illuminating glass panels from behind.
+9. **Spotlight Command Palette Trigger (`HeroSection.tsx`):** A mock Cmd+K search-bar placeholder in the Hero section which triggers the navigation command palette.
+10. **Magnetic Cursor Proximity Chips (`MagneticChip.tsx`):** Skill items rendered as standalone translucent pills that translate towards the cursor on hover using spring physics.
+11. **3D Tilt Bento Grid Achievements (`AchievementsSection.tsx`, `TiltCard.tsx`):** Asymmetric achievements Bento Grid with 3D cursor tilt, coordinate-linked glare overlays, and colored mesh gradients (purple/blue cosmic, and red/gold).
+12. **Cinematic Storytelling scroll-link (`ScrollFadeText.tsx`):** Section transition sentences that fade out and float upwards as the page is scrolled.
 
 ## Project Structure
 ```text
 portfolio/
 ├── content.json          # Single source of truth for portfolio data
+├── context.md            # Project overview and status documentation
 ├── frontend/
 │   ├── index.html        # Entry HTML
-│   ├── vite.config.ts    
+│   ├── vite.config.ts
 │   ├── tailwind.config.ts
 │   └── src/
 │       ├── main.tsx      # React root
-│       ├── App.tsx       # Main layout & Theme toggle
-│       ├── index.css     # CSS Variables & Glassmorphism classes
+│       ├── App.tsx       # Main layout & Theme toggle with ambient backlight tracking
+│       ├── index.css     # CSS Variables, Neural Glass, and interactive glow rules
 │       ├── store/        # Zustand state
 │       ├── data/         # Symlink/copy of content.json
 │       ├── components/
 │       │   ├── 3d/       # React Three Fiber components
-│       │   ├── sections/ # Page sections (Hero, About, Projects, etc.)
-│       │   └── ui/       # Shared UI components (GithubFeed)
+│       │   ├── sections/ # Page sections (Hero, About, Projects, Achievements, etc.)
+│       │   └── ui/       # UI elements (ScrollFadeText, MagneticChip, TiltCard, GithubFeed)
 ```
 
 ## Current State & Recent Fixes
-- **Typography:** Updated the About section to feature massive, animated (blur-reveal) typography mimicking premium agency designs.
-- **Layout:** Fixed sticky project cards to stack tightly near the top (`5rem + 1.5rem * idx`), preventing content cutoff on smaller screens.
-- **Glassmorphism:** Ensured all background colors and text colors use inline CSS variables (`var(--text-main)`, etc.) to prevent Tailwind utility class conflicts during theme switching.
-- **Assets:** Added CDN-hosted Devicon SVG logos to the Skills section.
+- **UI/UX Refactor**: Implemented a comprehensive high-fidelity micro-interactions package featuring 3D tilt effects, proximity pull vectors on skill tags, tactile active states (`scale: 0.97`) on all CTAs, and coordinate-linked ambient light overlays.
+- **Glassmorphism**: Adjusted glass-panel cards to use exact opacities (`rgba(255, 255, 255, 0.05)` for light mode, `rgba(39, 39, 42, 0.4)` for dark mode).
+- **Compilation & Verification**: All components are validated and compile successfully under TypeScript strict check, maintaining a 60fps rendering path.
 
 ## Next Steps / Backlog
 - Replace the primitive 3D shape (`Scene.tsx`) with a final customized `.glb` avatar.
-- Further refine custom button shapes in the Hero section (currently reverted to standard pills per user request).
 - Polish responsive layouts on mobile devices.

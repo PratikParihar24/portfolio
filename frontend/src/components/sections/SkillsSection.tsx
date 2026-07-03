@@ -1,5 +1,7 @@
 import content from '../../data/content.json'
 import { motion } from 'framer-motion'
+import MagneticChip from '../ui/MagneticChip'
+import ScrollFadeText from '../ui/ScrollFadeText'
 
 // Tech icon mapping using devicon CDN (free SVG icons for programming languages/tools)
 const TECH_ICONS: Record<string, string> = {
@@ -36,7 +38,7 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.06
+      staggerChildren: 0.1
     }
   }
 }
@@ -68,7 +70,7 @@ export default function SkillsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className="glass-panel p-6 hover:glow-hover transition-all"
+            className="glass-panel p-6 glow-effect hover:glow-hover transition-all"
           >
             <h3 className="font-bold mb-4" style={{ color: 'var(--text-main)' }}>{category}</h3>
             <motion.div 
@@ -79,10 +81,10 @@ export default function SkillsSection() {
               className="flex flex-wrap gap-3"
             >
               {items.map((skill) => (
-                <motion.div 
+                <MagneticChip 
                   key={skill} 
                   variants={itemVariants}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all cursor-default hover:scale-105 hover:shadow-lg"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium cursor-default glow-effect"
                   style={{ 
                     backgroundColor: 'var(--surface-color)', 
                     border: '1px solid var(--glass-border)',
@@ -93,27 +95,29 @@ export default function SkillsSection() {
                     <img 
                       src={TECH_ICONS[skill]} 
                       alt={skill} 
-                      className="w-5 h-5"
+                      className="w-5 h-5 select-none pointer-events-none"
                       loading="lazy"
                     />
                   )}
                   <span>{skill}</span>
-                </motion.div>
+                </MagneticChip>
               ))}
             </motion.div>
           </motion.div>
         ))}
       </div>
 
-      <div 
-        className="mt-32 text-center text-3xl md:text-4xl font-curvy tracking-wide"
-        style={{ 
-          fontFamily: "'Caveat', cursive",
-          color: 'var(--accent-color)',
-          textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
-        }}
-      >
-        Applying these skills has led to some milestone achievements... ↓
+      <div className="mt-32">
+        <ScrollFadeText 
+          className="text-center text-3xl md:text-4xl font-curvy tracking-wide"
+          style={{ 
+            fontFamily: "'Caveat', cursive",
+            color: 'var(--accent-color)',
+            textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+          }}
+        >
+          Applying these skills has led to some milestone achievements... ↓
+        </ScrollFadeText>
       </div>
     </section>
   )

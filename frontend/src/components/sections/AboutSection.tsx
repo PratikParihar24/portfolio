@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import ScrollFadeText from '../ui/ScrollFadeText'
 
 export default function AboutSection() {
   const sentence = "4th-year CS undergrad building real-time systems & AI tooling with a focus on shipping things that matter."
@@ -64,20 +65,19 @@ export default function AboutSection() {
             )
           })}
         </motion.div>
-        <motion.p 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-20 text-3xl md:text-4xl font-curvy tracking-wide inline-block"
-          style={{ 
-            fontFamily: "'Caveat', cursive",
-            color: 'var(--accent-color)',
-            textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
-          }}
-        >
-          Here is what I've been building recently ↓
-        </motion.p>
+        
+        <div className="mt-20">
+          <ScrollFadeText 
+            className="text-3xl md:text-4xl font-curvy tracking-wide inline-block"
+            style={{ 
+              fontFamily: "'Caveat', cursive",
+              color: 'var(--accent-color)',
+              textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+            }}
+          >
+            Here is what I've been building recently ↓
+          </ScrollFadeText>
+        </div>
       </div>
     </section>
   )

@@ -32,7 +32,8 @@ export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
       
       // On mobile, keep it strictly at the bottom or top so it doesn't block vertical scrolling text
       if (isMobile) {
-        targetPos.current.set(Math.random() > 0.5 ? 1.5 : -1.5, -2.5, -0.5)
+        // Keeping it lower on mobile
+        targetPos.current.set(Math.random() > 0.5 ? 1.5 : -1.5, -3.5, -0.5)
       } else {
         targetPos.current.set(spot[0], spot[1], spot[2])
       }
@@ -66,7 +67,7 @@ export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
   })
 
   return (
-    <group ref={group} dispose={null}>
+    <group ref={group} dispose={null} scale={isMobile ? 0.8 : 1}>
       <Float speed={2.5} rotationIntensity={0.2} floatIntensity={0.5}>
         <Trail width={0.5} length={4} color={new THREE.Color(0x00E5FF)} attenuation={(t) => t * t}>
           <group position={[0, 0, 0]}>

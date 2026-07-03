@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GitCommit, GitPullRequest, Star, GitFork, ExternalLink, ChevronDown } from 'lucide-react'
+import { GitCommit, GitPullRequest, Star, GitFork, ExternalLink, ChevronDown, AlertCircle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const EVENT_CONFIG: Record<string, { color: string; bgColor: string; label: string }> = {
@@ -12,20 +12,40 @@ const EVENT_CONFIG: Record<string, { color: string; bgColor: string; label: stri
 export default function GithubFeed() {
   const [events, setEvents] = useState<any[]>([])
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   
   useEffect(() => {
-    fetch('https://api.github.com/users/PratikParihar24/events/public')
-      .then(res => res.json())
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+    fetch('https://api.github.com/users/PratikParihar24/events/public', { signal: controller.signal })
+      .then(res => {
+        if (!res.ok) throw new Error('API Error')
+        return res.json()
+      })
       .then(data => {
         if (Array.isArray(data)) {
           const meaningful = data.filter(ev => ['PushEvent', 'PullRequestEvent', 'WatchEvent', 'ForkEvent'].includes(ev.type))
           setEvents(meaningful.slice(0, 5))
         }
+        setLoading(false)
       })
-      .catch(console.error)
+      .catch(err => {
+        if (err.name !== 'AbortError') {
+          console.error(err)
+        }
+        setError(true)
+        setLoading(false)
+      })
+
+    return () => {
+      clearTimeout(timeoutId)
+      controller.abort()
+    }
   }, [])
 
-  if (events.length === 0) return null
+  const getRepoName = (fullName: string) => fullName.split('/')[1] || fullName
 
   const getEventIcon = (type: string) => {
     switch (type) {
@@ -37,7 +57,75 @@ export default function GithubFeed() {
     }
   }
 
-  const getRepoName = (fullName: string) => fullName.split('/')[1] || fullName
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="space-y-2.5 px-4 pb-4">
+          {[1,2,3].map(i => (
+            <div key={i} className="animate-pulse flex items-center gap-3.5 p-3 rounded-xl border border-transparent bg-secondary/5">
+              <div className="w-9 h-9 rounded-lg bg-secondary/20 shrink-0"></div>
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-secondary/20 rounded w-3/4"></div>
+                <div className="h-3 bg-secondary/20 rounded w-1/2"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    if (error) {
+      return (
+        <div className="px-4 pb-6 text-center">
+          <AlertCircle className="mx-auto text-secondary mb-2" size={24} />
+          <p className="text-sm font-medium text-secondary">Unable to load activity right now.</p>
+        </div>
+      )
+    }
+
+    if (events.length === 0) {
+      return (
+        <div className="px-4 pb-6 text-center">
+          <p className="text-sm font-medium text-secondary">No recent public events found.</p>
+        </div>
+      )
+    }
+
+    return (
+      <div className="space-y-2.5 px-4 pb-4">
+        {events.map((ev, i) => {
+          const config = EVENT_CONFIG[ev.type] || EVENT_CONFIG.PushEvent
+          return (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ scale: 1.015, x: 4 }}
+              className="flex items-center gap-3.5 p-3 rounded-xl cursor-pointer border border-transparent transition-all duration-200 hover:border-accent/10 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
+              style={{ backgroundColor: config.bgColor }}
+            >
+              <div 
+                className="p-2.5 rounded-lg shrink-0"
+                style={{ backgroundColor: config.bgColor, color: config.color }}
+              >
+                {getEventIcon(ev.type)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate" style={{ color: 'var(--text-main)' }}>
+                  <span style={{ color: config.color }}>{config.label}</span>{' '}
+                  {getRepoName(ev.repo.name)}
+                </p>
+                <p className="text-xs mt-0.5" style={{ color: 'var(--secondary-color)' }}>
+                  {new Date(ev.created_at).toLocaleDateString()} · {new Date(ev.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                </p>
+              </div>
+            </motion.div>
+          )
+        })}
+      </div>
+    )
+  }
 
   return (
     <div 
@@ -101,38 +189,7 @@ export default function GithubFeed() {
               </a>
             </div>
 
-            <div className="space-y-2.5 px-4 pb-4">
-              {events.map((ev, i) => {
-                const config = EVENT_CONFIG[ev.type] || EVENT_CONFIG.PushEvent
-                return (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    whileHover={{ scale: 1.015, x: 4 }}
-                    className="flex items-center gap-3.5 p-3 rounded-xl cursor-pointer border border-transparent transition-all duration-200 hover:border-accent/10 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
-                    style={{ backgroundColor: config.bgColor }}
-                  >
-                    <div 
-                      className="p-2.5 rounded-lg shrink-0"
-                      style={{ backgroundColor: config.bgColor, color: config.color }}
-                    >
-                      {getEventIcon(ev.type)}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold truncate" style={{ color: 'var(--text-main)' }}>
-                        <span style={{ color: config.color }}>{config.label}</span>{' '}
-                        {getRepoName(ev.repo.name)}
-                      </p>
-                      <p className="text-xs mt-0.5" style={{ color: 'var(--secondary-color)' }}>
-                        {new Date(ev.created_at).toLocaleDateString()} · {new Date(ev.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                      </p>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
+            {renderContent()}
           </motion.div>
         )}
       </AnimatePresence>

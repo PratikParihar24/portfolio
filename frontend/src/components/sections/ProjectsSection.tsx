@@ -1,11 +1,46 @@
 import content from '../../data/content.json'
-import { ExternalLink, Code, Info } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { ExternalLink, Code, Info, Lock, Unlock } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useAppStore } from '../../store/useAppStore'
+import { useRef, useState } from 'react'
+import ScrollFadeText from '../ui/ScrollFadeText'
 
-function ProjectCard({ project, idx }: { project: any, idx: number }) {
+const UTILITIES = [
+  {
+    id: 'focusflow',
+    title: 'FocusFlow',
+    oneLiner: 'Chrome extension for tab management, deep work, and site blocking. Keeps developers focused.',
+    tech: ['Chrome Extension APIs', 'JavaScript', 'CSS3', 'HTML5'],
+    liveUrl: '#',
+    repoUrl: 'https://github.com/PratikParihar24/FocusFlow'
+  },
+  {
+    id: 'css-gradient-generator',
+    title: 'CSS Gradient Generator',
+    oneLiner: 'Interactive tool to design, preview, and copy CSS gradients with support for linear, radial, and mesh outputs.',
+    tech: ['React', 'Tailwind CSS', 'Framer Motion'],
+    liveUrl: '#',
+    repoUrl: 'https://github.com/PratikParihar24/css-gradient-generator'
+  }
+]
+
+function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme: string }) {
+  const [isHovered, setIsHovered] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 100px", "end start"]
+  })
+
+  const dimScale = useTransform(scrollYProgress, [0, 1], [1, 0.92])
+  const dimOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.1])
+
+  const bgOpacity = theme === 'dark' ? 'rgba(39, 39, 42, 0.6)' : 'rgba(255, 255, 255, 0.4)'
+
   return (
     <motion.div 
+      ref={ref}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -16,31 +51,61 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
         zIndex: idx + 10,
       }}
     >
-      <div className="glass-panel p-6 md:p-8 shadow-2xl transition-all duration-500 hover:scale-[1.01]">
+      <motion.div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        animate={isHovered && project.id === 'pattern-vault' ? {
+          x: [0, -2, 2, -1, 1, 0],
+          y: [0, 1, -1, 1, -1, 0],
+          transition: { duration: 0.3 }
+        } : {}}
+        style={{
+          scale: dimScale,
+          opacity: dimOpacity,
+          background: bgOpacity,
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
+        }}
+        className="glass-panel p-6 md:p-8 shadow-2xl transition-all duration-500 glow-effect"
+      >
         
         {/* Title row + links — always visible even when stacked, high z-index */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4 relative" style={{ zIndex: 50 }}>
-          <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-main)' }}>{project.title}</h3>
+          <div className="flex items-center gap-2">
+            {project.id === 'pattern-vault' && (
+              <motion.span 
+                animate={isHovered ? { rotate: [0, -10, 10, -10, 0], scale: 1.1 } : {}}
+                className="text-accent inline-block mr-1 align-middle"
+              >
+                {isHovered ? <Unlock size={24} /> : <Lock size={24} />}
+              </motion.span>
+            )}
+            <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-main)' }}>{project.title}</h3>
+          </div>
+          
           <div className="flex gap-3 shrink-0">
             {project.repoUrl && !project.repoUrl.includes('[') && (
-              <a 
+              <motion.a 
                 href={project.repoUrl} target="_blank" rel="noreferrer" 
-                className="p-3 rounded-full border transition-all hover:scale-110"
+                whileTap={{ scale: 0.97 }}
+                className="p-3 rounded-full border transition-all hover:scale-110 flex items-center justify-center cursor-pointer"
                 style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
               >
                 <Code size={18} />
-              </a>
+              </motion.a>
             )}
             {project.liveUrl && !project.liveUrl.includes('[') && (
-              <a 
+              <motion.a 
                 href={project.liveUrl.startsWith('http') ? project.liveUrl : `https://${project.liveUrl}`} 
                 target="_blank" rel="noreferrer" 
-                className="flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm"
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm cursor-pointer"
                 style={{ color: '#09090B' }}
               >
                 <span>Live</span>
                 <ExternalLink size={16} />
-              </a>
+              </motion.a>
             )}
           </div>
         </div>
@@ -87,7 +152,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
             })}
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }
@@ -95,6 +160,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
 export default function ProjectsSection() {
   const { projects } = content
   const setActiveContext = useAppStore(state => state.setActiveContext)
+  const theme = useAppStore(state => state.theme)
 
   return (
     <section id="projects" className="pt-10 pb-20 max-w-5xl mx-auto px-6">
@@ -109,7 +175,7 @@ export default function ProjectsSection() {
         <button 
           onClick={() => setActiveContext("I focus on the engineering decisions rather than just listing tech stacks. Knowing *why* a tool was used is more important than knowing it exists.")} 
           aria-label="Toggle engineering context"
-          className="hover:text-accent transition-colors"
+          className="hover:text-accent transition-colors cursor-pointer w-11 h-11 flex items-center justify-center rounded-full"
           style={{ color: 'var(--secondary-color)' }}
           title="Why this format?"
         >
@@ -117,21 +183,96 @@ export default function ProjectsSection() {
         </button>
       </motion.h2>
 
-      <div className="space-y-[45vh] pb-[45vh]">
+      <div className="space-y-[45vh] pb-[20vh]">
         {projects.map((project, idx) => (
-          <ProjectCard key={project.id} project={project} idx={idx} />
+          <ProjectCard key={project.id} project={project} idx={idx} theme={theme} />
         ))}
       </div>
 
-      <div 
-        className="mt-32 text-center text-3xl md:text-4xl font-curvy tracking-wide"
-        style={{ 
-          fontFamily: "'Caveat', cursive",
-          color: 'var(--accent-color)',
-          textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
-        }}
-      >
-        Behind these projects is a core set of skills... ↓
+      {/* Developer Utilities sub-layout */}
+      <div className="mt-32 pt-16 border-t border-glass-border">
+        <h3 className="text-2xl font-bold mb-8 text-text-main">
+          Developer Utilities
+        </h3>
+        <motion.div 
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
+          {UTILITIES.map((util) => (
+            <motion.div
+              key={util.id}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+              }}
+              whileHover={{ y: -6 }}
+              className="glass-panel p-6 flex flex-col justify-between hover:glow-hover transition-all border border-white/5 glow-effect"
+            >
+              <div>
+                <div className="flex justify-between items-start mb-4">
+                  <h4 className="text-xl font-bold text-text-main">
+                    {util.title}
+                  </h4>
+                  <div className="flex gap-2 shrink-0">
+                    <motion.a
+                      href={util.repoUrl} target="_blank" rel="noreferrer"
+                      whileTap={{ scale: 0.97 }}
+                      className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer bg-surface"
+                      style={{ borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                    >
+                      <Code size={14} />
+                    </motion.a>
+                    {util.liveUrl && util.liveUrl !== '#' && (
+                      <motion.a
+                        href={util.liveUrl} target="_blank" rel="noreferrer"
+                        whileTap={{ scale: 0.97 }}
+                        className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer bg-surface"
+                        style={{ borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                      >
+                        <ExternalLink size={14} />
+                      </motion.a>
+                    )}
+                  </div>
+                </div>
+                <p className="text-sm text-secondary mb-6 leading-relaxed">
+                  {util.oneLiner}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {util.tech.map((t) => (
+                  <span 
+                    key={t}
+                    className="px-2.5 py-1 rounded bg-surface border border-glass-border text-[10px] font-semibold text-text-main"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      <div className="mt-40">
+        <ScrollFadeText 
+          className="text-center text-3xl md:text-4xl font-curvy tracking-wide"
+          style={{ 
+            fontFamily: "'Caveat', cursive",
+            color: 'var(--accent-color)',
+            textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+          }}
+        >
+          Behind these projects is a core set of skills... ↓
+        </ScrollFadeText>
       </div>
     </section>
   )

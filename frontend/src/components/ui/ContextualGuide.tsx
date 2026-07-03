@@ -18,11 +18,12 @@ export default function ContextualGuide() {
           <div className="glass-panel p-4 pr-12 relative max-w-sm glow-effect">
             <button 
               onClick={() => setActiveContext(null)}
-              className="absolute top-2 right-2 text-secondary hover:text-text-main"
+              className="absolute top-1 right-1 w-11 h-11 flex items-center justify-center text-secondary hover:text-text-main text-xl rounded-full transition-colors"
+              aria-label="Close"
             >
               &times;
             </button>
-            <div className="flex gap-3 items-start">
+            <div className="flex gap-3 items-start mt-1">
               <div className="text-accent mt-1">
                 <Info size={20} />
               </div>

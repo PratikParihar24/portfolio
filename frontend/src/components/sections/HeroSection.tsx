@@ -2,9 +2,12 @@ import content from '../../data/content.json'
 import { motion } from 'framer-motion'
 import GithubFeed from '../ui/GithubFeed'
 import heroImg from '../../assets/hero.png'
+import { Search } from 'lucide-react'
+import { useAppStore } from '../../store/useAppStore'
 
 export default function HeroSection() {
   const { profile } = content
+  const setCommandOpen = useAppStore(state => state.setCommandOpen)
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative pt-24 overflow-hidden">
@@ -36,15 +39,27 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-wrap gap-4 mb-12"
+            className="flex flex-wrap gap-4 items-center mb-12 w-full"
           >
-            <a 
+            <motion.a 
               href="#projects" 
-              className="px-8 py-3.5 rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm md:text-base"
+              whileTap={{ scale: 0.97 }}
+              className="px-8 py-3.5 rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm md:text-base flex items-center justify-center"
               style={{ backgroundColor: 'var(--accent-color)', color: '#09090B' }}
             >
               View Projects
-            </a>
+            </motion.a>
+
+            <motion.button 
+              onClick={() => setCommandOpen(true)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="flex items-center gap-3 px-6 py-3.5 rounded-full border text-sm font-medium glass-panel shadow-sm hover:shadow-md transition-all cursor-pointer text-left w-full sm:w-auto"
+              style={{ borderColor: 'var(--glass-border)', color: 'var(--secondary-color)' }}
+            >
+              <Search size={16} className="text-secondary" />
+              <span>Press ⌘K to navigate</span>
+            </motion.button>
           </motion.div>
 
           {/* Curved pointing arrow arching from above "Parihar" down-right to the photo frame */}
