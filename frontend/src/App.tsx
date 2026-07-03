@@ -194,7 +194,9 @@ const NavBar = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="relative w-64 h-full border-r shadow-2xl flex flex-col p-6 gap-6"
               style={{ 
-                backgroundColor: 'var(--bg-main)',
+                backgroundColor: 'var(--navbar-bg)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 borderColor: 'var(--glass-border)',
               }}
             >
