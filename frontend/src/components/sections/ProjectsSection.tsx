@@ -219,15 +219,15 @@ export default function ProjectsSection() {
             >
               <div>
                 <div className="flex justify-between items-start mb-4">
-                  <h4 className="text-xl font-bold text-text-main">
+                  <h4 className="text-xl font-bold" style={{ color: 'var(--text-main)' }}>
                     {util.title}
                   </h4>
                   <div className="flex gap-2 shrink-0">
                     <motion.a
                       href={util.repoUrl} target="_blank" rel="noreferrer"
                       whileTap={{ scale: 0.97 }}
-                      className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer bg-surface"
-                      style={{ borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                      className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer"
+                      style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
                     >
                       <Code size={14} />
                     </motion.a>
@@ -235,15 +235,15 @@ export default function ProjectsSection() {
                       <motion.a
                         href={util.liveUrl} target="_blank" rel="noreferrer"
                         whileTap={{ scale: 0.97 }}
-                        className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer bg-surface"
-                        style={{ borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                        className="p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center cursor-pointer"
+                        style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
                       >
                         <ExternalLink size={14} />
                       </motion.a>
                     )}
                   </div>
                 </div>
-                <p className="text-sm text-secondary mb-6 leading-relaxed">
+                <p className="text-sm mb-6 leading-relaxed" style={{ color: 'var(--secondary-color)' }}>
                   {util.oneLiner}
                 </p>
               </div>
@@ -251,7 +251,12 @@ export default function ProjectsSection() {
                 {util.tech.map((t) => (
                   <span 
                     key={t}
-                    className="px-2.5 py-1 rounded bg-surface border border-glass-border text-[10px] font-semibold text-text-main"
+                    className="px-2.5 py-1 rounded border text-[10px] font-semibold"
+                    style={{ 
+                      backgroundColor: 'var(--surface-color)', 
+                      borderColor: 'var(--glass-border)', 
+                      color: 'var(--text-main)' 
+                    }}
                   >
                     {t}
                   </span>

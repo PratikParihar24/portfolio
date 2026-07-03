@@ -278,17 +278,10 @@
             "date": null
         },
         {
-            "id": "gtu-ideathon",
-            "size": "small",
+            "id": "hackathons",
+            "size": "medium",
             "stat": "Team Lead",
-            "label": "GTU Ideathon 2024 — Led ideation, team coordination, and final pitch presentation",
-            "date": "2024"
-        },
-        {
-            "id": "sparkathon",
-            "size": "small",
-            "stat": "Team Lead",
-            "label": "Sparkathon 2024 (Walmart, Online) — National-level retail innovation challenge",
+            "label": "GTU Ideathon & Sparkathon (Walmart) — Led ideation, team coordination, and final pitch presentation",
             "date": "2024"
         }
     ],

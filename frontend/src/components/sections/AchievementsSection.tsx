@@ -9,8 +9,7 @@ const GRADIENTS: Record<string, string> = {
   'devang-mehta': 'radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.2) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(239, 68, 68, 0.18) 0px, transparent 55%)',
   'merit-scholarship': 'radial-gradient(at 0% 100%, rgba(34, 197, 94, 0.18) 0px, transparent 55%), radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 55%)',
   'cgpa': 'radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.2) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 55%)',
-  'gtu-ideathon': 'radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.18) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.15) 0px, transparent 55%)',
-  'sparkathon': 'radial-gradient(at 50% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(244, 63, 94, 0.12) 0px, transparent 55%)'
+  'hackathons': 'radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.18) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 55%)'
 }
 
 export default function AchievementsSection() {
@@ -27,9 +26,7 @@ export default function AchievementsSection() {
         return 'col-span-1 md:col-span-1 md:row-span-1 min-h-[220px]'
       case 'cgpa':
         return 'col-span-1 md:col-span-1 md:row-span-1 min-h-[220px]'
-      case 'gtu-ideathon':
-        return 'col-span-1 md:col-span-1 md:row-span-1 min-h-[220px]'
-      case 'sparkathon':
+      case 'hackathons':
         return 'col-span-1 md:col-span-3 md:row-span-1 min-h-[160px]'
       default:
         return 'col-span-1'
