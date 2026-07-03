@@ -49,99 +49,213 @@ const Linkedin = ({ size = 24, ...props }: { size?: number } & React.SVGProps<SV
   </svg>
 )
 
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { AnimatePresence } from 'framer-motion'
+
 // NavBar with proper glass styling and theme toggle
 const NavBar = () => {
   const { theme, toggleTheme, setCommandOpen } = useAppStore()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
-    <nav 
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center border-b"
-      style={{ 
-        backgroundColor: 'var(--navbar-bg)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        borderColor: 'var(--glass-border)'
-      }}
-    >
-      <Link to="/" className="font-bold text-xl tracking-tight hover:opacity-85 transition-opacity" style={{ color: 'var(--text-main)' }}>
-        Pratik
-      </Link>
-      <div className="flex gap-2 items-center">
-        <Link 
-          to="/resume" 
-          className="px-4 py-1.5 rounded-full border text-xs md:text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          Resume
-        </Link>
-        <a 
-          href="https://github.com/PratikParihar24/" 
-          target="_blank" 
-          rel="noreferrer"
-          aria-label="GitHub"
-          className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          <Github size={18} />
-        </a>
-        <a 
-          href="https://www.linkedin.com/in/pratik-parihar-892a022a0/" 
-          target="_blank" 
-          rel="noreferrer"
-          aria-label="LinkedIn"
-          className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          <Linkedin size={18} />
-        </a>
-        <a 
-          href="#contact" 
-          className="px-4 py-1.5 min-h-[44px] flex items-center rounded-full border text-xs md:text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          Contact Me
-        </a>
-        <button 
-          onClick={() => setCommandOpen(true)}
-          aria-label="Open Command Palette"
-          className="w-11 h-11 rounded-full border transition-all hover:scale-105 md:hidden flex items-center justify-center"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          <Command size={18} />
-        </button>
-        <button 
-          onClick={toggleTheme} 
-          aria-label="Toggle dark mode"
-          className="w-11 h-11 md:w-auto md:h-auto md:p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center"
-          style={{ 
-            backgroundColor: 'var(--surface-color)', 
-            borderColor: 'var(--glass-border)',
-            color: 'var(--text-main)' 
-          }}
-        >
-          {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
-      </div>
-    </nav>
+    <>
+      <nav 
+        className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center border-b"
+        style={{ 
+          backgroundColor: 'var(--navbar-bg)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderColor: 'var(--glass-border)'
+        }}
+      >
+        {/* Mobile Left: Hamburger */}
+        <div className="md:hidden">
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open menu"
+            className="w-11 h-11 flex items-center justify-center rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            <Menu size={18} />
+          </button>
+        </div>
+
+        {/* Desktop Left: Spacer */}
+        <div className="hidden md:block"></div>
+
+        <div className="flex gap-2 items-center">
+          <Link 
+            to="/resume" 
+            className="hidden md:flex px-4 py-1.5 rounded-full border text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            Resume
+          </Link>
+          <a 
+            href="#contact" 
+            className="hidden md:flex px-4 py-1.5 min-h-[44px] items-center rounded-full border text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            Contact Me
+          </a>
+          
+          <button 
+            onClick={() => setCommandOpen(true)}
+            aria-label="Open Command Palette"
+            className="hidden md:flex p-2 rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            <Command size={18} />
+          </button>
+
+          <a 
+            href="https://github.com/PratikParihar24/" 
+            target="_blank" 
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            <Github size={18} />
+          </a>
+          <a 
+            href="https://www.linkedin.com/in/pratik-parihar-892a022a0/" 
+            target="_blank" 
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            <Linkedin size={18} />
+          </a>
+          <button 
+            onClick={toggleTheme} 
+            aria-label="Toggle dark mode"
+            className="w-11 h-11 md:w-auto md:h-auto md:p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center hover:bg-accent/10"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex md:hidden"
+          >
+            {/* Glassmorphism Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-md"
+            />
+            
+            {/* Sidebar */}
+            <motion.div 
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="relative w-64 h-full border-r shadow-2xl flex flex-col p-6 gap-6"
+              style={{ 
+                backgroundColor: 'var(--bg-main)',
+                borderColor: 'var(--glass-border)',
+              }}
+            >
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-11 h-11 flex items-center justify-center rounded-full border self-start transition-all hover:scale-105 hover:bg-accent/10"
+                style={{ 
+                  backgroundColor: 'var(--surface-color)', 
+                  borderColor: 'var(--glass-border)',
+                  color: 'var(--text-main)' 
+                }}
+              >
+                <X size={18} />
+              </button>
+              
+              <div className="flex flex-col gap-4 mt-4">
+                <Link 
+                  to="/resume" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  style={{ 
+                    backgroundColor: 'var(--surface-color)', 
+                    borderColor: 'var(--glass-border)',
+                    color: 'var(--text-main)' 
+                  }}
+                >
+                  Resume
+                </Link>
+                <a 
+                  href="#contact" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  style={{ 
+                    backgroundColor: 'var(--surface-color)', 
+                    borderColor: 'var(--glass-border)',
+                    color: 'var(--text-main)' 
+                  }}
+                >
+                  Contact Me
+                </a>
+                <button 
+                  onClick={() => {
+                    setCommandOpen(true)
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="px-4 py-3 flex items-center justify-between rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  style={{ 
+                    backgroundColor: 'var(--surface-color)', 
+                    borderColor: 'var(--glass-border)',
+                    color: 'var(--text-main)' 
+                  }}
+                >
+                  <span>Search Menu</span>
+                  <Command size={18} className="text-secondary" />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 
