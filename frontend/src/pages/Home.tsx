@@ -38,7 +38,7 @@ export default function Home() {
         style={{ scaleY }}
       />
       
-      <div className="relative z-10 flex flex-col gap-32">
+      <div className="relative z-10 flex flex-col gap-16">
         <SectionTracker id="hero"><HeroSection /></SectionTracker>
         <SectionTracker id="about"><AboutSection /></SectionTracker>
         <SectionTracker id="projects"><ProjectsSection /></SectionTracker>

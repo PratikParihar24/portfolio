@@ -21,7 +21,7 @@ export default function AchievementsSection() {
   }
 
   return (
-    <section id="achievements" className="py-20 max-w-5xl mx-auto px-6">
+    <section id="achievements" className="py-10 max-w-5xl mx-auto px-6">
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -1,8 +1,7 @@
 import content from '../../data/content.json'
 import { ExternalLink, Code, Info } from 'lucide-react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useAppStore } from '../../store/useAppStore'
-import { useRef } from 'react'
 
 function ProjectCard({ project, idx }: { project: any, idx: number }) {
   return (
@@ -17,10 +16,10 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
         zIndex: idx + 10,
       }}
     >
-      <div className="glass-panel p-8 md:p-12 shadow-2xl transition-all duration-500 hover:scale-[1.01]">
+      <div className="glass-panel p-6 md:p-8 shadow-2xl transition-all duration-500 hover:scale-[1.01]">
         
         {/* Title row + links — always visible even when stacked, high z-index */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 relative" style={{ zIndex: 50 }}>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4 relative" style={{ zIndex: 50 }}>
           <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-main)' }}>{project.title}</h3>
           <div className="flex gap-3 shrink-0">
             {project.repoUrl && !project.repoUrl.includes('[') && (
@@ -48,11 +47,11 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
 
         {/* Content */}
         <div>
-          <p className="text-lg mb-6 max-w-2xl" style={{ color: 'var(--secondary-color)' }}>
+          <p className="text-base mb-4 max-w-2xl" style={{ color: 'var(--secondary-color)' }}>
             {project.oneLiner}
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tech.map((t: string) => (
               <span 
                 key={t} 
@@ -68,7 +67,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
             ))}
           </div>
 
-          <div className="border-l-2 pl-6 space-y-6 relative" style={{ borderColor: 'var(--glass-border)' }}>
+          <div className="border-l-2 pl-6 space-y-4 relative" style={{ borderColor: 'var(--glass-border)' }}>
             {project.decisions.map((decision: any, i: number) => {
               if (decision.decision.includes('[ADD DECISION')) return null;
               return (
@@ -98,7 +97,7 @@ export default function ProjectsSection() {
   const setActiveContext = useAppStore(state => state.setActiveContext)
 
   return (
-    <section id="projects" className="pt-20 pb-64 max-w-5xl mx-auto px-6">
+    <section id="projects" className="pt-10 pb-20 max-w-5xl mx-auto px-6">
       <motion.h2 
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -118,13 +117,20 @@ export default function ProjectsSection() {
         </button>
       </motion.h2>
 
-      <div className="space-y-32">
+      <div className="space-y-[45vh] pb-[45vh]">
         {projects.map((project, idx) => (
           <ProjectCard key={project.id} project={project} idx={idx} />
         ))}
       </div>
 
-      <div className="mt-32 text-center text-lg italic" style={{ color: 'var(--secondary-color)' }}>
+      <div 
+        className="mt-32 text-center text-3xl md:text-4xl font-curvy tracking-wide"
+        style={{ 
+          fontFamily: "'Caveat', cursive",
+          color: 'var(--accent-color)',
+          textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+        }}
+      >
         Behind these projects is a core set of skills... ↓
       </div>
     </section>

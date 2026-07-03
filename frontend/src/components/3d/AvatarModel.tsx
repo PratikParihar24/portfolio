@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Sphere, Box, Float, Trail } from '@react-three/drei'
+import { Sphere, RoundedBox, Box, Float, Trail } from '@react-three/drei'
 import * as THREE from 'three'
 
 export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
@@ -84,9 +84,9 @@ export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
             </Sphere>
 
             {/* Visor / Face plate */}
-            <Box args={[0.6, 0.25, 0.3]} position={[0, 0.05, 0.3]} radius={0.1}>
+            <RoundedBox args={[0.6, 0.25, 0.3]} position={[0, 0.05, 0.3]} radius={0.1}>
               <meshStandardMaterial color="#111111" roughness={0.1} metalness={0.8} />
-            </Box>
+            </RoundedBox>
 
             {/* Cute Glowing Eyes */}
             <Sphere ref={eyeLeft} args={[0.05, 16, 16]} position={[-0.15, 0.05, 0.46]}>

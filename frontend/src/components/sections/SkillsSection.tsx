@@ -50,7 +50,7 @@ export default function SkillsSection() {
   const { skills } = content
 
   return (
-    <section id="skills" className="py-20 max-w-4xl mx-auto px-6">
+    <section id="skills" className="py-10 max-w-4xl mx-auto px-6">
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -103,6 +103,17 @@ export default function SkillsSection() {
             </motion.div>
           </motion.div>
         ))}
+      </div>
+
+      <div 
+        className="mt-32 text-center text-3xl md:text-4xl font-curvy tracking-wide"
+        style={{ 
+          fontFamily: "'Caveat', cursive",
+          color: 'var(--accent-color)',
+          textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+        }}
+      >
+        Applying these skills has led to some milestone achievements... ↓
       </div>
     </section>
   )

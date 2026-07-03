@@ -24,7 +24,7 @@ export default function AboutSection() {
       y: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 20,
         stiffness: 120
       }
@@ -32,7 +32,7 @@ export default function AboutSection() {
   }
 
   return (
-    <section id="about" className="py-20 max-w-5xl mx-auto px-6">
+    <section id="about" className="py-10 max-w-5xl mx-auto px-6">
       <div className="text-center py-10">
         <motion.div 
           variants={containerVariants}
@@ -50,7 +50,7 @@ export default function AboutSection() {
 
             return (
               <motion.span 
-                key={index} 
+                key={`${word}-${index}`} 
                 variants={wordVariants}
                 className="inline-block"
                 style={{ 
@@ -65,12 +65,16 @@ export default function AboutSection() {
           })}
         </motion.div>
         <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 text-lg md:text-xl font-medium"
-          style={{ color: 'var(--secondary-color)' }}
+          className="mt-20 text-3xl md:text-4xl font-curvy tracking-wide inline-block"
+          style={{ 
+            fontFamily: "'Caveat', cursive",
+            color: 'var(--accent-color)',
+            textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+          }}
         >
           Here is what I've been building recently ↓
         </motion.p>

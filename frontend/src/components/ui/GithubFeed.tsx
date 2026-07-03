@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { GitCommit, GitPullRequest, Star, GitFork, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react'
+import { GitCommit, GitPullRequest, Star, GitFork, ExternalLink, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const EVENT_CONFIG: Record<string, { color: string; bgColor: string; label: string }> = {
@@ -40,18 +40,29 @@ export default function GithubFeed() {
   const getRepoName = (fullName: string) => fullName.split('/')[1] || fullName
 
   return (
-    <div className="glass-panel p-4 mt-8 max-w-lg mx-auto w-full">
+    <div 
+      className="glass-panel p-2 mt-8 max-w-lg mx-auto w-full transition-all duration-300 hover:border-accent/30 hover:shadow-[0_0_20px_rgba(34,197,94,0.05)]"
+      style={{ zIndex: 10 }}
+    >
       {/* Dropdown Header Trigger */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between font-bold text-sm md:text-base py-1 px-2 hover:opacity-80 transition-opacity"
+        className="w-full flex items-center justify-between font-bold text-sm md:text-base py-3.5 px-4 hover:bg-accent/5 rounded-xl transition-all duration-200"
         style={{ color: 'var(--text-main)' }}
       >
-        <span className="flex items-center gap-2">
-          <span className="text-accent animate-pulse">●</span>
+        <span className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+          </span>
           Click here to see live GitHub activity
         </span>
-        {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15 }}
+        >
+          <ChevronDown size={18} />
+        </motion.div>
       </button>
 
       <AnimatePresence>
@@ -60,12 +71,12 @@ export default function GithubFeed() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
             className="overflow-hidden"
           >
             {/* Header with GitHub profile link */}
-            <div className="flex items-center justify-between mt-6 mb-4 px-2">
-              <span className="text-xs font-semibold" style={{ color: 'var(--secondary-color)' }}>
+            <div className="flex items-center justify-between mt-6 mb-4 px-4">
+              <span className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--secondary-color)' }}>
                 Recent Public Events
               </span>
               <a 
@@ -73,10 +84,10 @@ export default function GithubFeed() {
                 target="_blank" 
                 rel="noreferrer"
                 aria-label="GitHub Profile"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all hover:scale-105"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-300 hover:scale-105 hover:bg-accent/10"
                 style={{ 
                   backgroundColor: 'var(--surface-color)', 
-                  border: '1px solid var(--glass-border)',
+                  borderColor: 'var(--glass-border)',
                   color: 'var(--text-main)' 
                 }}
               >
@@ -90,26 +101,27 @@ export default function GithubFeed() {
               </a>
             </div>
 
-            <div className="space-y-3 px-2 pb-2">
+            <div className="space-y-2.5 px-4 pb-4">
               {events.map((ev, i) => {
                 const config = EVENT_CONFIG[ev.type] || EVENT_CONFIG.PushEvent
                 return (
                   <motion.div 
                     key={i}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
-                    className="flex items-center gap-3 p-3 rounded-xl transition-all hover:scale-[1.02]"
+                    whileHover={{ scale: 1.015, x: 4 }}
+                    className="flex items-center gap-3.5 p-3 rounded-xl cursor-pointer border border-transparent transition-all duration-200 hover:border-accent/10 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
                     style={{ backgroundColor: config.bgColor }}
                   >
                     <div 
-                      className="p-2 rounded-lg shrink-0"
+                      className="p-2.5 rounded-lg shrink-0"
                       style={{ backgroundColor: config.bgColor, color: config.color }}
                     >
                       {getEventIcon(ev.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate" style={{ color: 'var(--text-main)' }}>
+                      <p className="text-sm font-semibold truncate" style={{ color: 'var(--text-main)' }}>
                         <span style={{ color: config.color }}>{config.label}</span>{' '}
                         {getRepoName(ev.repo.name)}
                       </p>

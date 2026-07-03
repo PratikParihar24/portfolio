@@ -8,10 +8,10 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative pt-24 overflow-hidden">
-      <div className="max-w-7xl w-full mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+      <div className="max-w-7xl w-full mx-auto px-6 flex flex-col lg:flex-row items-center lg:items-start lg:justify-center lg:-translate-x-8 gap-12 lg:gap-20 z-10 lg:pt-12">
         
         {/* Left Column: Intro text and call-to-actions */}
-        <div className="lg:col-span-7 flex flex-col items-start text-left relative pl-0 lg:pl-4">
+        <div className="w-full lg:w-[550px] flex flex-col items-start text-left relative pl-0 lg:pl-4">
           <motion.p 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,11 +47,11 @@ export default function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Dotted pointing arrow pointing from "Parihar" (below 'h') down-curving to the photo frame */}
-          <div className="absolute right-[-10%] bottom-[12%] w-64 h-36 hidden lg:block pointer-events-none z-20">
-            <svg viewBox="0 0 200 100" fill="none" className="w-full h-full">
+          {/* Curved pointing arrow arching from above "Parihar" down-right to the photo frame */}
+          <div className="absolute right-[-135px] top-[52px] w-44 h-20 hidden lg:block pointer-events-none z-20">
+            <svg viewBox="0 0 180 80" fill="none" className="w-full h-full">
               <motion.path 
-                d="M 10 20 Q 90 95, 175 60" 
+                d="M 10 60 Q 80 15, 150 50" 
                 stroke="var(--accent-color)" 
                 strokeWidth="2.5" 
                 strokeDasharray="6 6"
@@ -60,7 +60,7 @@ export default function HeroSection() {
                 transition={{ duration: 1.5, delay: 0.8 }}
               />
               <motion.path 
-                d="M 160 68 L 175 60 L 163 48" 
+                d="M 132 46 L 150 50 L 142 32" 
                 stroke="var(--accent-color)" 
                 strokeWidth="2.5"
                 initial={{ opacity: 0 }}
@@ -81,30 +81,30 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column: Profile Image + Large text behind */}
-        <div className="lg:col-span-5 flex flex-col justify-center items-center relative select-none mt-12 lg:mt-0">
-          {/* FULL STACK Label styled beautifully above picture - Center aligned */}
+        <div className="flex-shrink-0 flex flex-col justify-center items-center relative select-none mt-12 lg:mt-0">
+          {/* Full Stack Label styled above picture - Center aligned */}
           <motion.span 
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-base md:text-lg font-heading font-black tracking-[0.3em] text-accent mb-6 z-20 uppercase bg-accent/10 border border-accent/20 px-4 py-1.5 rounded-full"
+            className="text-sm md:text-base font-heading font-black tracking-[0.3em] text-accent mb-4 z-20 uppercase bg-accent/10 border border-accent/20 px-4 py-1.5 rounded-full"
           >
             Full Stack
           </motion.span>
 
-          {/* Huge background text outline "DEVELOPER" behind - shifted left & scaled to prevent clipping */}
-          <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none overflow-visible w-[140%] -ml-[20%]">
-            <span className="text-outline text-6xl md:text-7xl lg:text-[6.5rem] font-black tracking-[0.1em] uppercase whitespace-nowrap transform translate-y-8 select-none">
+          {/* Huge background text outline "DEVELOPER" behind - centered and scaled to prevent clipping */}
+          <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none select-none overflow-visible w-[200%] -ml-[50%]">
+            <span className="text-outline text-5xl md:text-6xl lg:text-[5.5rem] font-black tracking-[0.1em] uppercase whitespace-nowrap transform translate-y-6 select-none opacity-80">
               DEVELOPER
             </span>
           </div>
 
-          {/* Styled Photo Frame */}
+          {/* Styled Photo Frame - sized to fit standard screens perfectly */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
-            className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full p-2 border-2 border-dashed z-10"
+            className="relative w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full p-2 border-2 border-dashed z-10"
             style={{ borderColor: 'var(--glass-border)' }}
           >
             <div className="w-full h-full rounded-full overflow-hidden border-4 border-accent relative bg-gradient-to-tr from-accent/20 to-transparent">
@@ -115,7 +115,7 @@ export default function HeroSection() {
               />
             </div>
             {/* Ambient glow decoration under the photo */}
-            <div className="absolute inset-0 bg-accent/20 rounded-full blur-[80px] -z-10" />
+            <div className="absolute inset-0 bg-accent/20 rounded-full blur-[60px] -z-10" />
           </motion.div>
         </div>
 

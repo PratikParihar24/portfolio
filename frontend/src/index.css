@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
 /* 
@@ -14,6 +15,8 @@
   
   --font-sans: 'Inter', sans-serif;
   --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-curvy: 'Caveat', cursive;
+  --font-serif-curvy: 'Playfair Display', serif;
 }
 
 /* Tell Tailwind v4 that dark: utilities should match the .dark class */
