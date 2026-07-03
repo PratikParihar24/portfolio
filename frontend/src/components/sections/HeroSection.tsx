@@ -1,7 +1,7 @@
 import content from '../../data/content.json'
 import { motion } from 'framer-motion'
 import GithubFeed from '../ui/GithubFeed'
-import heroImg from '../../assets/hero.png'
+import heroImg from '../../assets/hero.webp'
 import { Search } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
 
