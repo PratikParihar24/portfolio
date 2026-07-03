@@ -5,8 +5,10 @@ import { useAppStore } from './store/useAppStore'
 import { useEffect } from 'react'
 import ContextualGuide from './components/ui/ContextualGuide'
 import CommandPalette from './components/ui/CommandPalette'
-import Scene from './components/3d/Scene'
 import { Moon, Sun, Command } from 'lucide-react'
+import React, { useEffect } from 'react'
+
+import Scene from './components/3d/Scene'
 
 // NavBar with proper glass styling and theme toggle
 const NavBar = () => {

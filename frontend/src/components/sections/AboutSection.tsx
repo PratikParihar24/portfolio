@@ -10,21 +10,32 @@ export default function AboutSection() {
         transition={{ duration: 0.8 }}
         className="text-center py-10"
       >
-        <motion.p 
-          initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.15]"
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+          className="text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight leading-[1.2]"
           style={{ color: 'var(--text-main)' }}
         >
-          <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>4th-year CS undergrad building </span>
-          <br className="hidden md:block" />
-          real-time systems <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>&</span> AI tooling
-          <br className="hidden md:block" />
-          <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>with a focus on </span>
-          shipping things that matter.
-        </motion.p>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
+            <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>4th-year CS undergrad building </span>
+          </motion.div>
+          
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
+            real-time systems <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>&</span> AI tooling
+          </motion.div>
+          
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
+            <span style={{ color: 'var(--secondary-color)', fontWeight: 400 }}>with a focus on </span>
+          </motion.div>
+          
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
+            shipping things that matter.
+          </motion.div>
+        </motion.div>
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

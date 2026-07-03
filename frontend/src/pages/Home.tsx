@@ -5,7 +5,7 @@ import SkillsSection from '../components/sections/SkillsSection'
 import AchievementsSection from '../components/sections/AchievementsSection'
 import ContactSection from '../components/sections/ContactSection'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useAppStore } from '../store/useAppStore'
 
 function SectionTracker({ id, children }: { id: string, children: React.ReactNode }) {

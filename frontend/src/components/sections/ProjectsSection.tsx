@@ -5,31 +5,19 @@ import { useAppStore } from '../../store/useAppStore'
 import { useRef } from 'react'
 
 function ProjectCard({ project, idx }: { project: any, idx: number }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start start", "start -100%"]
-  })
-
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
-  const cardScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.97])
-
   return (
     <motion.div 
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="relative md:sticky"
       style={{ 
         top: `calc(5rem + ${idx * 1.5}rem)`, 
         zIndex: idx + 10,
-        scale: cardScale
       }}
     >
-      <div className="glass-panel p-8 md:p-12 shadow-2xl">
+      <div className="glass-panel p-8 md:p-12 shadow-2xl transition-all duration-500 hover:scale-[1.01]">
         
         {/* Title row + links — always visible even when stacked, high z-index */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 relative" style={{ zIndex: 50 }}>
@@ -58,8 +46,8 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
           </div>
         </div>
 
-        {/* Content that fades when card recedes */}
-        <motion.div style={{ opacity: contentOpacity }}>
+        {/* Content */}
+        <div>
           <p className="text-lg mb-6 max-w-2xl" style={{ color: 'var(--secondary-color)' }}>
             {project.oneLiner}
           </p>
@@ -89,7 +77,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
+                  transition={{ delay: i * 0.1 }}
                   className="relative"
                 >
                   <div className="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-accent glow-effect"></div>
@@ -99,7 +87,7 @@ function ProjectCard({ project, idx }: { project: any, idx: number }) {
               )
             })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   )
