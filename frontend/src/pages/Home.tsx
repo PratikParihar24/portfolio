@@ -5,6 +5,26 @@ import SkillsSection from '../components/sections/SkillsSection'
 import AchievementsSection from '../components/sections/AchievementsSection'
 import ContactSection from '../components/sections/ContactSection'
 import { motion, useScroll, useSpring } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { useAppStore } from '../store/useAppStore'
+
+function SectionTracker({ id, children }: { id: string, children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const setSection = useAppStore(state => state.setSection)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setSection(id)
+      }
+    }, { threshold: 0.2 }) // Trigger when 20% visible
+
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [id, setSection])
+
+  return <div ref={ref}>{children}</div>
+}
 
 export default function Home() {
   const { scrollYProgress } = useScroll()
@@ -19,12 +39,12 @@ export default function Home() {
       />
       
       <div className="relative z-10 flex flex-col gap-32">
-        <HeroSection />
-        <AboutSection />
-        <ProjectsSection />
-        <SkillsSection />
-        <AchievementsSection />
-        <ContactSection />
+        <SectionTracker id="hero"><HeroSection /></SectionTracker>
+        <SectionTracker id="about"><AboutSection /></SectionTracker>
+        <SectionTracker id="projects"><ProjectsSection /></SectionTracker>
+        <SectionTracker id="skills"><SkillsSection /></SectionTracker>
+        <SectionTracker id="achievements"><AchievementsSection /></SectionTracker>
+        <SectionTracker id="contact"><ContactSection /></SectionTracker>
       </div>
     </div>
   )

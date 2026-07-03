@@ -6,12 +6,10 @@ import { useEffect, useRef, useState } from 'react'
 function AvatarContainer() {
   const { viewport } = useThree()
   const isMobile = viewport.width < 6
-  const xPos = isMobile ? 0 : 2.5
-  const yPos = isMobile ? -2 : 0
 
   return (
-    <group position={[xPos, yPos, 0]} scale={isMobile ? 0.8 : 1}>
-      <AvatarModel />
+    <group scale={isMobile ? 0.8 : 1}>
+      <AvatarModel isMobile={isMobile} />
     </group>
   )
 }
