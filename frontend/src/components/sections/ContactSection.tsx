@@ -7,13 +7,43 @@ export default function ContactSection() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle')
   const { contact } = content
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus('submitting')
-    setTimeout(() => {
-      setStatus('success')
-      setTimeout(() => setStatus('idle'), 3000)
-    }, 1500)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message')
+    }
+
+    try {
+      // Use environment variable or default to local backend
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+      const response = await fetch(`${apiUrl}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        form.reset() // Clear the form
+        setTimeout(() => setStatus('idle'), 3000)
+      } else {
+        console.error('Failed to submit form')
+        setStatus('idle')
+        alert('Failed to send message. Please try again later.')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setStatus('idle')
+      alert('Network error. Please make sure the backend is running.')
+    }
   }
 
   return (
@@ -41,6 +71,7 @@ export default function ContactSection() {
       >
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 relative">
           <input 
+            name="name"
             required type="text" placeholder="Name" 
             className="p-3 rounded-lg focus:outline-none transition-colors"
             style={{ 
@@ -50,6 +81,7 @@ export default function ContactSection() {
             }}
           />
           <input 
+            name="email"
             required type="email" placeholder="Email" 
             className="p-3 rounded-lg focus:outline-none transition-colors"
             style={{ 
@@ -59,6 +91,7 @@ export default function ContactSection() {
             }}
           />
           <textarea 
+            name="message"
             required placeholder="Message" rows={5} 
             className="p-3 rounded-lg focus:outline-none transition-colors"
             style={{ 
