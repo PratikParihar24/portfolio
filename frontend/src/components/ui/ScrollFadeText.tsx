@@ -20,7 +20,7 @@ export default function ScrollFadeText({ children, className = "", style = {} }:
   const y = useTransform(scrollYProgress, [0, 0.55, 0.8], [0, 0, -25])
 
   return (
-    <motion.div ref={ref} style={{ opacity, y, ...style }} className={className}>
+    <motion.div ref={ref} style={{ opacity, y, willChange: 'transform, opacity', ...style }} className={className}>
       {children}
     </motion.div>
   )

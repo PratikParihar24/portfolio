@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Send, CheckCircle, Loader2 } from 'lucide-react'
 import content from '../../data/content.json'
 
 export default function ContactSection() {
@@ -101,16 +101,40 @@ export default function ContactSection() {
             }}
           ></textarea>
           
-          <button 
+          <motion.button 
             type="submit" 
             disabled={status !== 'idle'}
-            className="py-3 bg-accent rounded-lg font-bold glow-effect hover:glow-hover transition-all mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ color: '#09090B' }}
+            whileHover={status === 'idle' ? { scale: 1.02 } : {}}
+            whileTap={status === 'idle' ? { scale: 0.98 } : {}}
+            className={`py-3 rounded-lg font-bold transition-all mt-4 flex items-center justify-center gap-2 ${
+              status === 'success' 
+                ? 'bg-green-500 text-white shadow-[0_0_20px_rgba(34,197,94,0.4)]' 
+                : 'bg-accent glow-effect hover:glow-hover text-[#09090B]'
+            } disabled:opacity-80 disabled:cursor-not-allowed`}
           >
-            {status === 'idle' && 'Send Message'}
-            {status === 'submitting' && 'Sending...'}
-            {status === 'success' && 'Sent Successfully!'}
-          </button>
+            {status === 'idle' && (
+              <>
+                <Send size={18} />
+                <span>Send Message</span>
+              </>
+            )}
+            {status === 'submitting' && (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                <span>Sending...</span>
+              </>
+            )}
+            {status === 'success' && (
+              <motion.div 
+                initial={{ scale: 0.5, opacity: 0 }} 
+                animate={{ scale: 1, opacity: 1 }} 
+                className="flex items-center gap-2"
+              >
+                <CheckCircle size={18} />
+                <span>Sent Successfully!</span>
+              </motion.div>
+            )}
+          </motion.button>
         </form>
       </motion.div>
 

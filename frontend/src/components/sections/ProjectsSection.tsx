@@ -36,7 +36,7 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
   const dimScale = useTransform(scrollYProgress, [0, 1], [1, 0.92])
   const dimOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.1])
 
-  const bgOpacity = theme === 'dark' ? 'rgba(39, 39, 42, 0.6)' : 'rgba(255, 255, 255, 0.4)'
+  const bgOpacity = theme === 'dark' ? 'rgba(24, 24, 27, 0.92)' : 'rgba(255, 255, 255, 0.96)'
 
   return (
     <motion.div 
@@ -65,9 +65,11 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
           background: bgOpacity,
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          willChange: 'transform, opacity',
+          transition: 'box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease'
         }}
-        className="glass-panel p-6 md:p-8 shadow-2xl transition-all duration-500 glow-effect"
+        className="glass-panel p-6 md:p-8 shadow-2xl glow-effect"
       >
         
         {/* Title row + links — always visible even when stacked, high z-index */}
@@ -183,7 +185,7 @@ export default function ProjectsSection() {
         </button>
       </motion.h2>
 
-      <div className="space-y-[45vh] pb-[20vh]">
+      <div className="space-y-[45vh] pb-[75vh]">
         {projects.map((project, idx) => (
           <ProjectCard key={project.id} project={project} idx={idx} theme={theme} />
         ))}
