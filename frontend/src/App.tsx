@@ -53,28 +53,77 @@ import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence } from 'framer-motion'
 
-// NavBar with proper glass styling and theme toggle
+// NavBar with proper glass styling, theme toggle, and macOS status-bar style auto-reveal on top hover
 const NavBar = () => {
   const { theme, toggleTheme, setCommandOpen } = useAppStore()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      // 1. Show navbar when near top
+      if (currentScrollY < 20) {
+        setVisible(true)
+      } 
+      // 2. Hide when scrolling down past 50px
+      else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setVisible(false)
+      } 
+      // 3. Show when scrolling up
+      else if (currentScrollY < lastScrollY) {
+        setVisible(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      // Desktop top edge hover detection (if cursor is within top 40px of screen)
+      if (e.clientY <= 40) {
+        setVisible(true)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [lastScrollY])
 
   return (
     <>
-      <nav 
-        className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center border-b"
+      <motion.nav 
+        initial={{ y: 0 }}
+        animate={{ y: visible ? 0 : -90 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 px-6 py-3.5 flex justify-between items-center border-b shadow-sm"
         style={{ 
           backgroundColor: 'var(--navbar-bg)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           borderColor: 'var(--glass-border)'
         }}
       >
+        {/* Brand Logo / Home indicator */}
+        <Link 
+          to="/" 
+          className="text-lg font-black tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
+          style={{ color: 'var(--text-main)' }}
+        >
+          <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
+          <span>Pratik Parihar</span>
+        </Link>
+
         {/* Mobile Left: Hamburger */}
         <div className="md:hidden">
           <button 
             onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Open menu"
-            className="w-11 h-11 flex items-center justify-center rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+            className="w-10 h-10 flex items-center justify-center rounded-full border transition-all hover:scale-105 hover:bg-accent/10 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -85,13 +134,13 @@ const NavBar = () => {
           </button>
         </div>
 
-        {/* Desktop Left: Spacer */}
-        <div className="hidden md:block"></div>
-
-        <div className="flex gap-2 items-center">
-          <Link 
-            to="/resume" 
-            className="hidden md:flex px-4 py-1.5 rounded-full border text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
+        {/* Right Nav Items: Uniform 40px (h-10) Height Buttons */}
+        <div className="hidden md:flex gap-2.5 items-center">
+          <a 
+            href="/resume.pdf" 
+            target="_blank"
+            rel="noreferrer"
+            className="h-10 px-5 rounded-full border text-sm font-bold flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -99,10 +148,10 @@ const NavBar = () => {
             }}
           >
             Resume
-          </Link>
+          </a>
           <a 
             href="#contact" 
-            className="hidden md:flex px-4 py-1.5 min-h-[44px] items-center rounded-full border text-sm font-bold transition-all hover:scale-105 hover:bg-accent/5"
+            className="h-10 px-5 rounded-full border text-sm font-bold flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -115,7 +164,7 @@ const NavBar = () => {
           <button 
             onClick={() => setCommandOpen(true)}
             aria-label="Open Command Palette"
-            className="hidden md:flex p-2 rounded-full border transition-all hover:scale-105 hover:bg-accent/10"
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -130,7 +179,7 @@ const NavBar = () => {
             target="_blank" 
             rel="noreferrer"
             aria-label="GitHub"
-            className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -144,7 +193,7 @@ const NavBar = () => {
             target="_blank" 
             rel="noreferrer"
             aria-label="LinkedIn"
-            className="p-2 md:p-2 w-11 h-11 md:w-auto md:h-auto rounded-full border transition-all hover:scale-105 hover:bg-accent/10 flex items-center justify-center"
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -156,7 +205,7 @@ const NavBar = () => {
           <button 
             onClick={toggleTheme} 
             aria-label="Toggle dark mode"
-            className="w-11 h-11 md:w-auto md:h-auto md:p-2 rounded-full border transition-all hover:scale-105 flex items-center justify-center hover:bg-accent/10"
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
             style={{ 
               backgroundColor: 'var(--surface-color)', 
               borderColor: 'var(--glass-border)',
@@ -166,7 +215,7 @@ const NavBar = () => {
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -202,7 +251,7 @@ const NavBar = () => {
             >
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-11 h-11 flex items-center justify-center rounded-full border self-start transition-all hover:scale-105 hover:bg-accent/10"
+                className="w-10 h-10 flex items-center justify-center rounded-full border self-start transition-all hover:scale-105 hover:bg-accent/10 cursor-pointer"
                 style={{ 
                   backgroundColor: 'var(--surface-color)', 
                   borderColor: 'var(--glass-border)',
@@ -213,22 +262,24 @@ const NavBar = () => {
               </button>
               
               <div className="flex flex-col gap-4 mt-4">
-                <Link 
-                  to="/resume" 
+                <a 
+                  href="/resume.pdf" 
+                  target="_blank"
+                  rel="noreferrer"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10 cursor-pointer"
                   style={{ 
                     backgroundColor: 'var(--surface-color)', 
                     borderColor: 'var(--glass-border)',
                     color: 'var(--text-main)' 
                   }}
                 >
-                  Resume
-                </Link>
+                  Resume (PDF)
+                </a>
                 <a 
                   href="#contact" 
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  className="px-4 py-3 flex items-center justify-center rounded-xl border text-sm font-bold transition-all hover:bg-accent/10 cursor-pointer"
                   style={{ 
                     backgroundColor: 'var(--surface-color)', 
                     borderColor: 'var(--glass-border)',
@@ -242,7 +293,7 @@ const NavBar = () => {
                     setCommandOpen(true)
                     setIsMobileMenuOpen(false)
                   }}
-                  className="px-4 py-3 flex items-center justify-between rounded-xl border text-sm font-bold transition-all hover:bg-accent/10"
+                  className="px-4 py-3 flex items-center justify-between rounded-xl border text-sm font-bold transition-all hover:bg-accent/10 cursor-pointer"
                   style={{ 
                     backgroundColor: 'var(--surface-color)', 
                     borderColor: 'var(--glass-border)',
@@ -260,6 +311,7 @@ const NavBar = () => {
     </>
   )
 }
+
 
 function AmbientFlashlight() {
   const mouseX = useMotionValue(-1000)

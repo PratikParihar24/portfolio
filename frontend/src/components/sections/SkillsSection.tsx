@@ -38,7 +38,7 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1
+      staggerChildren: 0.08
     }
   }
 }
@@ -68,11 +68,15 @@ export default function SkillsSection() {
             key={category} 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className="glass-panel p-6 glow-effect hover:glow-hover transition-all"
+            className="glass-panel p-6 glow-effect hover:glow-hover transition-all border border-white/5"
           >
-            <h3 className="font-bold mb-4" style={{ color: 'var(--text-main)' }}>{category}</h3>
+            <h3 className="font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--text-main)' }}>
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              {category}
+            </h3>
             <motion.div 
               variants={containerVariants}
               initial="hidden"
@@ -84,7 +88,7 @@ export default function SkillsSection() {
                 <MagneticChip 
                   key={skill} 
                   variants={itemVariants}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium cursor-default glow-effect"
+                  className="group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium cursor-pointer glow-effect transition-all duration-300 hover:scale-105"
                   style={{ 
                     backgroundColor: 'var(--surface-color)', 
                     border: '1px solid var(--glass-border)',
@@ -95,7 +99,7 @@ export default function SkillsSection() {
                     <img 
                       src={TECH_ICONS[skill]} 
                       alt={skill} 
-                      className="w-5 h-5 select-none pointer-events-none"
+                      className="w-5 h-5 select-none pointer-events-none transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110"
                       loading="lazy"
                     />
                   )}
@@ -122,3 +126,4 @@ export default function SkillsSection() {
     </section>
   )
 }
+

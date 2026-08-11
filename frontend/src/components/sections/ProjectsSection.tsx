@@ -39,15 +39,15 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
   const bgOpacity = theme === 'dark' ? 'rgba(24, 24, 27, 0.92)' : 'rgba(255, 255, 255, 0.96)'
 
   return (
-    <motion.div 
+    <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="relative md:sticky"
-      style={{ 
-        top: `calc(5rem + ${idx * 1.5}rem)`, 
+      style={{
+        top: `calc(5rem + ${idx * 1.5}rem)`,
         zIndex: idx + 10,
       }}
     >
@@ -71,12 +71,12 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
         }}
         className="glass-panel p-6 md:p-8 shadow-2xl glow-effect"
       >
-        
+
         {/* Title row + links — always visible even when stacked, high z-index */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4 relative" style={{ zIndex: 50 }}>
           <div className="flex items-center gap-2">
             {project.id === 'pattern-vault' && (
-              <motion.span 
+              <motion.span
                 animate={isHovered ? { rotate: [0, -10, 10, -10, 0], scale: 1.1 } : {}}
                 className="text-accent inline-block mr-1 align-middle"
               >
@@ -85,11 +85,11 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
             )}
             <h3 className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-main)' }}>{project.title}</h3>
           </div>
-          
+
           <div className="flex gap-3 shrink-0">
             {project.repoUrl && !project.repoUrl.includes('[') && (
-              <motion.a 
-                href={project.repoUrl} target="_blank" rel="noreferrer" 
+              <motion.a
+                href={project.repoUrl} target="_blank" rel="noreferrer"
                 whileTap={{ scale: 0.97 }}
                 className="p-3 rounded-full border transition-all hover:scale-110 flex items-center justify-center cursor-pointer"
                 style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
@@ -98,9 +98,9 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
               </motion.a>
             )}
             {project.liveUrl && !project.liveUrl.includes('[') && (
-              <motion.a 
-                href={project.liveUrl.startsWith('http') ? project.liveUrl : `https://${project.liveUrl}`} 
-                target="_blank" rel="noreferrer" 
+              <motion.a
+                href={project.liveUrl.startsWith('http') ? project.liveUrl : `https://${project.liveUrl}`}
+                target="_blank" rel="noreferrer"
                 whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-2 px-5 py-2.5 bg-accent rounded-full font-bold glow-effect hover:glow-hover transition-all text-sm cursor-pointer"
                 style={{ color: '#09090B' }}
@@ -120,11 +120,11 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
 
           <div className="flex flex-wrap gap-2 mb-4">
             {project.tech.map((t: string) => (
-              <span 
-                key={t} 
+              <span
+                key={t}
                 className="px-3 py-1 rounded-md text-xs font-semibold"
-                style={{ 
-                  backgroundColor: 'var(--surface-color)', 
+                style={{
+                  backgroundColor: 'var(--surface-color)',
                   border: '1px solid var(--glass-border)',
                   color: 'var(--text-main)'
                 }}
@@ -138,8 +138,8 @@ function ProjectCard({ project, idx, theme }: { project: any, idx: number, theme
             {project.decisions.map((decision: any, i: number) => {
               if (decision.decision.includes('[ADD DECISION')) return null;
               return (
-                <motion.div 
-                  key={i} 
+                <motion.div
+                  key={i}
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -166,7 +166,7 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="pt-10 pb-20 max-w-5xl mx-auto px-6">
-      <motion.h2 
+      <motion.h2
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -174,8 +174,8 @@ export default function ProjectsSection() {
         style={{ color: 'var(--text-main)' }}
       >
         Projects
-        <button 
-          onClick={() => setActiveContext("I focus on the engineering decisions rather than just listing tech stacks. Knowing *why* a tool was used is more important than knowing it exists.")} 
+        <button
+          onClick={() => setActiveContext("I focus on the engineering decisions rather than just listing tech stacks. Knowing *why* a tool was used is more important than knowing it exists.")}
           aria-label="Toggle engineering context"
           className="hover:text-accent transition-colors cursor-pointer w-11 h-11 flex items-center justify-center rounded-full"
           style={{ color: 'var(--secondary-color)' }}
@@ -185,7 +185,7 @@ export default function ProjectsSection() {
         </button>
       </motion.h2>
 
-      <div className="space-y-[45vh] pb-[75vh]">
+      <div className="space-y-[45vh] pb-[25vh]">
         {projects.map((project, idx) => (
           <ProjectCard key={project.id} project={project} idx={idx} theme={theme} />
         ))}
@@ -194,9 +194,9 @@ export default function ProjectsSection() {
       {/* Developer Utilities sub-layout */}
       <div className="mt-32 pt-16 border-t border-glass-border">
         <h3 className="text-2xl font-bold mb-8 text-text-main">
-          Developer Utilities
+          Developer Utilities made by me
         </h3>
-        <motion.div 
+        <motion.div
           variants={{
             hidden: { opacity: 0 },
             show: {
@@ -251,13 +251,13 @@ export default function ProjectsSection() {
               </div>
               <div className="flex flex-wrap gap-2 mt-auto">
                 {util.tech.map((t) => (
-                  <span 
+                  <span
                     key={t}
                     className="px-2.5 py-1 rounded border text-[10px] font-semibold"
-                    style={{ 
-                      backgroundColor: 'var(--surface-color)', 
-                      borderColor: 'var(--glass-border)', 
-                      color: 'var(--text-main)' 
+                    style={{
+                      backgroundColor: 'var(--surface-color)',
+                      borderColor: 'var(--glass-border)',
+                      color: 'var(--text-main)'
                     }}
                   >
                     {t}
@@ -270,9 +270,9 @@ export default function ProjectsSection() {
       </div>
 
       <div className="mt-40">
-        <ScrollFadeText 
+        <ScrollFadeText
           className="text-center text-3xl md:text-4xl font-curvy tracking-wide"
-          style={{ 
+          style={{
             fontFamily: "'Caveat', cursive",
             color: 'var(--accent-color)',
             textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
