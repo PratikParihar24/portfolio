@@ -14,9 +14,9 @@ export default function MagneticChip({ children, className = "", style = {}, var
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  // Spring physics matching: stiffness: 150, damping: 15
-  const springX = useSpring(x, { stiffness: 150, damping: 15 })
-  const springY = useSpring(y, { stiffness: 150, damping: 15 })
+  // Spring physics matching: stiffness: 220, damping: 18
+  const springX = useSpring(x, { stiffness: 220, damping: 18 })
+  const springY = useSpring(y, { stiffness: 220, damping: 18 })
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return
@@ -28,9 +28,9 @@ export default function MagneticChip({ children, className = "", style = {}, var
     const cursorY = e.clientY - centerY
 
     requestAnimationFrame(() => {
-      // Proximity translation: x: cursor.x * 0.12, y: cursor.y * 0.12
-      x.set(cursorX * 0.12)
-      y.set(cursorY * 0.12)
+      // Proximity translation: pull chip slightly towards cursor
+      x.set(cursorX * 0.16)
+      y.set(cursorY * 0.16)
     })
   }
 
@@ -44,15 +44,15 @@ export default function MagneticChip({ children, className = "", style = {}, var
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.05, y: -2 }}
+      whileTap={{ scale: 0.95 }}
       variants={variants}
       style={{
         x: springX,
         y: springY,
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
         ...style,
       }}
-      className={`glass-panel cursor-default relative z-10 ${className}`}
+      className={`relative z-10 select-none cursor-pointer group transition-all duration-200 border border-black/10 dark:border-white/10 bg-white dark:bg-zinc-800 text-text-main shadow-xs hover:border-accent hover:shadow-[0_4px_16px_rgba(34,197,94,0.18)] dark:hover:shadow-[0_0_18px_rgba(34,197,94,0.25)] ${className}`}
     >
       {children}
     </motion.div>

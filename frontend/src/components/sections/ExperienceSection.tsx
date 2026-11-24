@@ -3,6 +3,19 @@ import { motion } from 'framer-motion'
 import { Briefcase, Calendar, ChevronRight } from 'lucide-react'
 import MagneticChip from '../ui/MagneticChip'
 
+const TECH_ICONS: Record<string, string> = {
+  'Python': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  'JavaScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+  'TypeScript': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+  'React': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+  'Node.js': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg',
+  'FastAPI': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+  'MongoDB': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg',
+  'Odoo 17': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  'RAG': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+  'REST APIs': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+}
+
 export default function ExperienceSection() {
   const { experience } = content
 
@@ -84,17 +97,25 @@ export default function ExperienceSection() {
             {/* Technologies used in the role */}
             {exp.tech && exp.tech.length > 0 && (
               <div className="relative z-10 pt-5 border-t border-black/10 dark:border-white/10">
-                <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-3 flex items-center gap-2">
+                <p className="text-xs font-bold uppercase tracking-wider text-secondary mb-3.5 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                   Technologies Handled
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2.5">
                   {exp.tech.map((t: string) => (
                     <MagneticChip
                       key={t}
-                      className="px-3 py-1 rounded-lg border border-black/10 dark:border-white/10 bg-slate-50/80 dark:bg-zinc-800/80 text-xs font-semibold text-text-main hover:border-accent hover:shadow-xs transition-colors"
+                      className="px-3.5 py-1.5 rounded-xl flex items-center gap-2"
                     >
-                      {t}
+                      {TECH_ICONS[t] && (
+                        <img
+                          src={TECH_ICONS[t]}
+                          alt={t}
+                          className="w-3.5 h-3.5 object-contain select-none pointer-events-none group-hover:rotate-12 transition-transform duration-200"
+                          onError={(e) => { e.currentTarget.style.display = 'none' }}
+                        />
+                      )}
+                      <span className="text-xs font-bold group-hover:text-accent transition-colors">{t}</span>
                     </MagneticChip>
                   ))}
                 </div>
