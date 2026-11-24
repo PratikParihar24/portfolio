@@ -7,16 +7,16 @@
         "github": "https://github.com/PratikParihar24/",
         "linkedin": "https://www.linkedin.com/in/pratik-parihar-892a022a0/",
         "tagline": "Full-stack developer building real-time systems and AI tooling",
-        "objective": "4th-year CS undergraduate at SAL Institute (9.43 CGPA) — building real-time systems and AI tooling, with a consistent academic record and a growing stack of shipped projects. Looking for a full-stack or backend internship where I can ship things that matter."
+        "objective": "4th-year CS undergraduate at SAL Institute (9.51 CGPA) — building real-time systems and AI tooling, with a consistent academic record and a growing stack of shipped projects. Looking for a full-stack or backend internship where I can ship things that matter."
     },
     "education": {
         "degree": "B.Tech in Computer Science & Engineering",
         "institution": "SAL Institute of Technology and Engineering Research, GTU",
         "duration": "2023 – 2027",
-        "cgpa": "9.43 / 10",
+        "cgpa": "9.51 / 10",
         "highlights": [
             "100% Merit Scholarship (TFWS): Awarded a full tuition fee waiver seat based on state-level merit rank.",
-            "Devang Mehta IT Award: Top Ranker, CSE Branch (2022–23, 2023–24).",
+            "Devang Mehta IT Award: 3× Top Ranker, CSE Branch (Rank 1 in 2022–23, 2023–24, 2024–25).",
             "Industry-Led Minor: Artificial Intelligence & Machine Learning — Infosys Springboard × GTU"
         ],
         "priorEducation": [
@@ -37,6 +37,44 @@
         ]
     },
     "projects": [
+        {
+            "id": "parihar-brothers",
+            "title": "Parihar Brothers — Wholesale ERP",
+            "accentUse": "primary",
+            "tag": "Offline-First Enterprise ERP",
+            "badge": "",
+            "oneLiner": "Offline-first wholesale ERP replacing phone-call price checks and manual ledgers with instant lookup, cart-to-bill pipeline, and daily ledger tracking with zero internet needed.",
+            "tech": [
+                "Django REST",
+                "PostgreSQL",
+                "React",
+                "TypeScript",
+                "Dexie.js",
+                "IndexedDB",
+                "Capacitor",
+                "Fuse.js"
+            ],
+            "liveUrl": "",
+            "repoUrl": "https://github.com/PratikParihar24/Parihar-Brothers.git",
+            "decisions": [
+                {
+                    "decision": "Engineered local-first mutation outbox delta-sync engine",
+                    "reasoning": "Employed Dexie.js/IndexedDB with client-side UUID generation so wholesale transactions operate completely offline with zero write collisions upon reconnection."
+                },
+                {
+                    "decision": "Immutable price snapshot cart-to-bill pipeline",
+                    "reasoning": "Locks accurate wholesale prices at the instant of order creation, shielding pending drafts from subsequent master-catalog price updates."
+                },
+                {
+                    "decision": "Sub-millisecond fuzzy search with Hindi phonetic aliases",
+                    "reasoning": "Integrated Fuse.js across ~200 inventory SKUs supporting regional aliases, letting store operators pull items instantly without phone calls."
+                },
+                {
+                    "decision": "Shipped native Android APK via Capacitor with PIN-based role auth",
+                    "reasoning": "Enables multi-worker floor operations on handheld devices with lightning-fast PIN authentication without complex credential overhead."
+                }
+            ]
+        },
         {
             "id": "biasbench",
             "title": "BiasBench",
@@ -117,8 +155,8 @@
                 "React",
                 "Socket.io"
             ],
-            "liveUrl": "[APPLYAGENT_LIVE_URL]",
-            "repoUrl": "[APPLYAGENT_REPO_URL]",
+            "liveUrl": "",
+            "repoUrl": "https://github.com/PratikParihar24/Apply-Agent",
             "decisions": [
                 {
                     "decision": "Built a RAG pipeline via ChromaDB + sentence-transformers",
@@ -250,38 +288,48 @@
     },
     "achievements": [
         {
+            "id": "devang-mehta",
+            "stat": "Rank 1",
+            "badge": "3× Winner",
+            "tag": "State Excellence",
+            "title": "Devang Mehta IT Award",
+            "label": "Top Ranker across CSE Branch for 3 consecutive academic years (2022–23, 2023–24, 2024–25).",
+            "date": "2022 – 2025"
+        },
+        {
             "id": "isro-sac",
-            "size": "large",
-            "stat": "38/500+",
-            "label": "Selected for ISRO Space Applications Centre (SAC) — Deep-Dive Exposure Program",
+            "stat": "38 / 500+",
+            "badge": "Top ~7% Selection",
+            "tag": "National Research",
+            "title": "ISRO Space Applications Centre (SAC)",
+            "label": "Selected for exclusive Deep-Dive Exposure Program at ISRO SAC.",
             "date": "January 2026"
         },
         {
-            "id": "devang-mehta",
-            "size": "medium",
-            "stat": "Top Rank",
-            "label": "Devang Mehta IT Award — Top Ranker, CSE Branch",
-            "date": "2022–23, 2023–24"
+            "id": "cgpa",
+            "stat": "9.51 / 10",
+            "badge": "Academic Record",
+            "tag": "University Topper",
+            "title": "Academic CGPA",
+            "label": "B.Tech Computer Science & Engineering, GTU. Consistent department top percentile.",
+            "date": "2023 – Present"
         },
         {
             "id": "merit-scholarship",
-            "size": "medium",
             "stat": "100%",
-            "label": "Merit Scholarship (TFWS) — Full tuition fee waiver on state-level merit rank",
-            "date": null
-        },
-        {
-            "id": "cgpa",
-            "size": "medium",
-            "stat": "9.43/10",
-            "label": "CGPA — B.Tech Computer Science, GTU",
-            "date": null
+            "badge": "Full Merit Waiver",
+            "tag": "State Merit",
+            "title": "TFWS Merit Scholarship",
+            "label": "Full tuition fee waiver granted through state-level engineering counseling merit rank.",
+            "date": "2023 – 2027"
         },
         {
             "id": "hackathons",
-            "size": "medium",
-            "stat": "Team Lead",
-            "label": "GTU Ideathon & Sparkathon (Walmart) — Led ideation, team coordination, and final pitch presentation",
+            "stat": "Finalist",
+            "badge": "Team Lead",
+            "tag": "Hackathons & Innovation",
+            "title": "GTU Ideathon Finalist",
+            "label": "Led end-to-end ideation, architectural design, team coordination, and final jury pitch at GTU Ideathon & Sparkathon (Walmart).",
             "date": "2024"
         }
     ],
@@ -343,7 +391,7 @@
         }
     ],
     "contact": {
-        "formEndpoint": "  ",
+        "formEndpoint": "c4c1dfb0-022e-4bda-8077-a21d2fbb491c",
         "socialLinks": {
             "github": "https://github.com/PratikParihar24/",
             "linkedin": "https://www.linkedin.com/in/pratik-parihar-892a022a0/",

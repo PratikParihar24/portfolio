@@ -1,6 +1,5 @@
 import content from '../../data/content.json'
 import { motion } from 'framer-motion'
-import GithubFeed from '../ui/GithubFeed'
 import heroImg from '../../assets/hero.webp'
 import { Search } from 'lucide-react'
 import { useAppStore } from '../../store/useAppStore'
@@ -85,15 +84,6 @@ export default function HeroSection() {
               />
             </svg>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="w-full"
-          >
-            <GithubFeed />
-          </motion.div>
         </div>
 
         {/* Right Column: Profile Image + Floating badge */}

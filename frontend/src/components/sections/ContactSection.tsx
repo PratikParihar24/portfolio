@@ -13,36 +13,31 @@ export default function ContactSection() {
 
     const form = e.currentTarget
     const formData = new FormData(form)
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message')
-    }
+    const accessKey = contact.formEndpoint?.trim() || "c4c1dfb0-022e-4bda-8077-a21d2fbb491c"
+
+    formData.append("access_key", accessKey)
 
     try {
-      // Use environment variable or default to local backend
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-      const response = await fetch(`${apiUrl}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
       })
 
-      if (response.ok) {
+      const data = await response.json()
+
+      if (data.success) {
         setStatus('success')
-        form.reset() // Clear the form
-        setTimeout(() => setStatus('idle'), 3000)
+        form.reset()
+        setTimeout(() => setStatus('idle'), 4000)
       } else {
-        console.error('Failed to submit form')
+        console.error('Web3Forms error:', data)
         setStatus('idle')
-        alert('Failed to send message. Please try again later.')
+        alert(data.message || 'Failed to send message. Please try again.')
       }
     } catch (error) {
       console.error('Error submitting form:', error)
       setStatus('idle')
-      alert('Network error. Please make sure the backend is running.')
+      alert('Network error. Please try again or email directly.')
     }
   }
 
