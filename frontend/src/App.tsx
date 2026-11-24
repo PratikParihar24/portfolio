@@ -314,20 +314,21 @@ const NavBar = () => {
 
 
 function AmbientFlashlight() {
+  const theme = useAppStore(state => state.theme)
   const mouseX = useMotionValue(-1000)
   const mouseY = useMotionValue(-1000)
 
   // Smooth springs for cursor movement
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 30 })
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 30 })
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 25 })
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 25 })
 
   useEffect(() => {
     let frameId: number
     const handleMouseMove = (e: MouseEvent) => {
       cancelAnimationFrame(frameId)
       frameId = requestAnimationFrame(() => {
-        // Offset by half of flashlight width (40vw / 2 = 20vw of screen width)
-        const radius = window.innerWidth * 0.2
+        // Offset by half of flashlight width (400px / 2 = 200px)
+        const radius = 250
         mouseX.set(e.clientX - radius)
         mouseY.set(e.clientY - radius)
       })
@@ -339,17 +340,24 @@ function AmbientFlashlight() {
     }
   }, [mouseX, mouseY])
 
+  // In light mode, rgba(22, 163, 74, 0.22) with blend mode multiply/screen gives a vibrant, visible green aura.
+  // In dark mode, rgba(34, 197, 94, 0.18) gives a clean neon glow.
+  const gradient = theme === 'light'
+    ? 'radial-gradient(circle, rgba(22, 163, 74, 0.22) 0%, rgba(34, 197, 94, 0.12) 40%, transparent 70%)'
+    : 'radial-gradient(circle, rgba(34, 197, 94, 0.20) 0%, rgba(34, 197, 94, 0.08) 45%, transparent 70%)'
+
   return (
     <motion.div
       style={{
         x: springX,
         y: springY,
-        width: '40vw',
-        height: '40vw',
-        background: 'radial-gradient(circle, rgba(34,197,94,0.12) 0%, transparent 60%)',
-        filter: 'blur(80px)',
+        width: '500px',
+        height: '500px',
+        background: gradient,
+        filter: 'blur(60px)',
+        mixBlendMode: theme === 'light' ? 'multiply' : 'screen',
       }}
-      className="fixed top-0 left-0 pointer-events-none rounded-full z-[-1]"
+      className="fixed top-0 left-0 pointer-events-none rounded-full z-0 opacity-100"
     />
   )
 }
