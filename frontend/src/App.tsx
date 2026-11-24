@@ -362,8 +362,11 @@ function AmbientFlashlight() {
   )
 }
 
+import Preloader from './components/ui/Preloader'
+
 function App() {
   const theme = useAppStore(state => state.theme)
+  const [loading, setLoading] = useState(true)
   
   // Sync dark class on mount and theme change
   useEffect(() => {
@@ -376,6 +379,9 @@ function App() {
 
   return (
     <Router>
+      <AnimatePresence mode="wait">
+        {loading && <Preloader onComplete={() => setLoading(false)} />}
+      </AnimatePresence>
       <AmbientFlashlight />
       <Scene />
       <ContextualGuide />

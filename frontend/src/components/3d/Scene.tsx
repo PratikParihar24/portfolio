@@ -1,4 +1,4 @@
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { Html, useProgress } from '@react-three/drei'
 import LightingRig from './LightingRig'
 import AvatarModel from './AvatarModel'
@@ -17,12 +17,9 @@ function Loader() {
 }
 
 function AvatarContainer() {
-  const { viewport } = useThree()
-  const isMobile = viewport.width < 6
-
   return (
-    <group scale={isMobile ? 0.7 : 1}>
-      <AvatarModel isMobile={isMobile} />
+    <group scale={1}>
+      <AvatarModel />
     </group>
   )
 }
@@ -30,16 +27,31 @@ function AvatarContainer() {
 export default function Scene() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
+  const [isMobileScreen, setIsMobileScreen] = useState(false)
 
   useEffect(() => {
+    // Check if on a mobile/narrow screen (< 768px)
+    const checkMobile = () => {
+      setIsMobileScreen(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile, { passive: true })
+
     const timer = setTimeout(() => setReady(true), 150)
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('resize', checkMobile)
+    }
   }, [])
+
+  // Do not render Three.js canvas on mobile devices to save battery, memory, and avoid cluttering screen
+  if (isMobileScreen) return null
 
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none"
+      className="fixed inset-0 pointer-events-none hidden md:block"
       style={{ zIndex: 15 }}
     >
       {ready && (

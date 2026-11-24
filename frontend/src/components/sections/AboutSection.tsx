@@ -9,7 +9,7 @@ export default function AboutSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.04
+        staggerChildren: 0.03
       }
     }
   }
@@ -17,8 +17,8 @@ export default function AboutSection() {
   const wordVariants = {
     hidden: { 
       opacity: 0, 
-      y: 15,
-      filter: "blur(6px)"
+      y: 12,
+      filter: "blur(4px)"
     },
     visible: { 
       opacity: 1, 
@@ -33,14 +33,14 @@ export default function AboutSection() {
   }
 
   return (
-    <section id="about" className="py-10 max-w-5xl mx-auto px-6">
-      <div className="text-center py-10">
+    <section id="about" className="py-8 sm:py-12 max-w-5xl mx-auto px-4 sm:px-6">
+      <div className="text-center py-6 sm:py-10">
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-4xl md:text-5xl lg:text-[3.8rem] font-bold tracking-tight leading-[1.3] text-left md:text-center flex flex-wrap md:justify-center gap-x-3 gap-y-1.5"
+          viewport={{ once: true, margin: "-50px" }}
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-bold tracking-tight leading-[1.3] text-left sm:text-center flex flex-wrap sm:justify-center gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-1.5"
           style={{ color: 'var(--text-main)' }}
         >
           {words.map((word, index) => {
@@ -50,34 +50,35 @@ export default function AboutSection() {
             const isEmphasis = index >= 13 && index <= 16;
 
             return (
-              <motion.span 
-                key={`${word}-${index}`} 
+              <motion.span
+                key={index}
                 variants={wordVariants}
-                className="inline-block"
-                style={{ 
-                  color: isHighlight ? 'var(--text-highlight)' : 'inherit',
-                  fontWeight: isHighlight ? 800 : (isEmphasis ? 600 : 400),
-                  textShadow: isHighlight ? '0 0 20px rgba(0, 229, 255, 0.2)' : 'none'
-                }}
+                className={`inline-block transition-all duration-300 hover:scale-105 cursor-default ${
+                  isHighlight 
+                    ? "text-accent font-extrabold" 
+                    : isEmphasis
+                    ? "font-extrabold underline decoration-accent/40 underline-offset-4 sm:underline-offset-8"
+                    : ""
+                }`}
               >
                 {word}
               </motion.span>
             )
           })}
         </motion.div>
-        
-        <div className="mt-20">
-          <ScrollFadeText 
-            className="text-3xl md:text-4xl font-curvy tracking-wide inline-block"
-            style={{ 
-              fontFamily: "'Caveat', cursive",
-              color: 'var(--accent-color)',
-              textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
-            }}
-          >
-            Here is what I've been building recently ↓
-          </ScrollFadeText>
-        </div>
+      </div>
+
+      <div className="mt-16 sm:mt-24">
+        <ScrollFadeText 
+          className="text-center text-2xl sm:text-3xl md:text-4xl font-curvy tracking-wide"
+          style={{ 
+            fontFamily: "'Caveat', cursive",
+            color: 'var(--accent-color)',
+            textShadow: '0 0 15px rgba(34, 197, 94, 0.15)'
+          }}
+        >
+          Here's a glimpse of what I've worked on... ↓
+        </ScrollFadeText>
       </div>
     </section>
   )

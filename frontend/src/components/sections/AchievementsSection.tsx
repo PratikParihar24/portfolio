@@ -67,7 +67,7 @@ export default function AchievementsSection() {
   const renderDescription = (item: any) => {
     if (item.id === 'devang-mehta') {
       return (
-        <p className="text-secondary text-sm md:text-base mt-2 leading-relaxed">
+        <p className="text-secondary text-xs sm:text-sm md:text-base mt-2 leading-relaxed">
           Top Ranker across CSE Branch for <span className="font-bold text-accent">3 consecutive</span> academic years{' '}
           <span className="font-extrabold px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 inline-block mt-1">
             (2022–23, 2023–24, 2024–25)
@@ -78,44 +78,44 @@ export default function AchievementsSection() {
     }
     if (item.id === 'isro-sac') {
       return (
-        <p className="text-secondary text-sm md:text-base mt-2 leading-relaxed">
+        <p className="text-secondary text-xs sm:text-sm md:text-base mt-2 leading-relaxed">
           Selected among <span className="font-bold text-accent">38 candidates out of 500+</span> applicants for the exclusive Deep-Dive Exposure Program at ISRO SAC.
         </p>
       )
     }
     if (item.id === 'cgpa') {
       return (
-        <p className="text-secondary text-sm mt-1.5 leading-relaxed">
+        <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">
           B.Tech Computer Science, GTU. Maintained top tier standing with <span className="font-bold text-accent">9.51 / 10 CGPA</span> across all semesters.
         </p>
       )
     }
     if (item.id === 'merit-scholarship') {
       return (
-        <p className="text-secondary text-sm mt-1.5 leading-relaxed">
+        <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">
           <span className="font-bold text-accent">100% full tuition fee waiver</span> granted through state-level engineering counseling merit ranking.
         </p>
       )
     }
     if (item.id === 'hackathons') {
       return (
-        <p className="text-secondary text-sm mt-1.5 leading-relaxed">
+        <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">
           <span className="font-bold text-accent">GTU Ideathon & Sparkathon (Walmart) Finalist</span>. Led ideation, architecture, team coordination, and final jury pitch.
         </p>
       )
     }
-    return <p className="text-secondary text-sm mt-1.5 leading-relaxed">{item.label}</p>
+    return <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">{item.label}</p>
   }
 
   const spotlightAchievements = achievements.slice(0, 2)
   const secondaryAchievements = achievements.slice(2)
 
   return (
-    <section id="achievements" className="py-16 max-w-5xl mx-auto px-6">
+    <section id="achievements" className="py-12 sm:py-16 max-w-5xl mx-auto px-4 sm:px-6">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-3 sm:gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-accent/10 text-accent border border-accent/20 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-accent/10 text-accent border border-accent/20 mb-2 sm:mb-3">
             <Sparkles size={14} className="animate-pulse" />
             Milestones & Recognition
           </div>
@@ -123,18 +123,18 @@ export default function AchievementsSection() {
             initial={{ opacity: 0, y: -15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-extrabold text-text-main tracking-tight"
+            className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-text-main tracking-tight"
           >
             Achievements
           </motion.h2>
         </div>
-        <p className="text-secondary text-sm md:text-base max-w-md">
+        <p className="text-secondary text-xs sm:text-sm md:text-base max-w-md">
           Demonstrated consistency across academics, competitive selections, and collaborative hackathons.
         </p>
       </div>
 
       {/* Row 1: Spotlight Dual Hero Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 mb-4 sm:mb-6">
         {spotlightAchievements.map((item) => {
           const Icon = ICON_MAP[item.id] || Trophy
           const theme = ACCENT_THEMES[item.id] || ACCENT_THEMES['devang-mehta']
@@ -146,7 +146,7 @@ export default function AchievementsSection() {
               className={isPrimary ? 'lg:col-span-7' : 'lg:col-span-5'}
             >
               <TiltCard
-                className={`relative h-full p-8 md:p-10 rounded-3xl border border-black/10 dark:border-white/10 shadow-lg bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
+                className={`relative h-full p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-md bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
                 style={{
                   background: theme.cardBg,
                   backgroundColor: 'var(--surface-color)'
@@ -158,43 +158,43 @@ export default function AchievementsSection() {
                 />
 
                 {/* Top Bar: Badges & Icon */}
-                <div className="relative z-10 flex items-start justify-between gap-4 mb-8">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase border ${theme.pillBg}`}>
+                <div className="relative z-10 flex items-start justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <span className={`inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wide uppercase border ${theme.pillBg}`}>
                       {item.tag}
                     </span>
                     {item.badge && (
-                      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-zinc-800 border border-black/10 dark:border-white/10 text-text-main shadow-xs">
+                      <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-white dark:bg-zinc-800 border border-black/10 dark:border-white/10 text-text-main shadow-xs">
                         {item.badge}
                       </span>
                     )}
                   </div>
-                  <div className={`p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 shadow-sm ${theme.pillText} group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon size={24} />
+                  <div className={`p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 shadow-sm ${theme.pillText} shrink-0`}>
+                    <Icon size={20} className="sm:w-6 sm:h-6" />
                   </div>
                 </div>
 
                 {/* Stat Display */}
-                <div className="relative z-10 mb-6">
+                <div className="relative z-10 mb-4 sm:mb-6">
                   <div className="flex items-baseline gap-3">
-                    <span className={`text-5xl md:text-6xl lg:text-7xl font-black tracking-tight bg-gradient-to-r ${theme.statGradient} bg-clip-text text-transparent`}>
+                    <span className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight bg-gradient-to-r ${theme.statGradient} bg-clip-text text-transparent`}>
                       {item.stat}
                     </span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-text-main mt-3 leading-snug">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-text-main mt-2 sm:mt-3 leading-snug">
                     {item.title}
                   </h3>
                   {renderDescription(item)}
                 </div>
 
                 {/* Footer Meta */}
-                <div className="relative z-10 pt-6 mt-auto border-t border-black/10 dark:border-white/10 flex items-center justify-between text-xs font-semibold text-secondary">
-                  <span className="flex items-center gap-2 tracking-wider uppercase">
-                    <span className="w-2 h-2 rounded-full bg-accent" />
+                <div className="relative z-10 pt-4 sm:pt-6 mt-auto border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] sm:text-xs font-semibold text-secondary">
+                  <span className="flex items-center gap-1.5 tracking-wider uppercase">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
                     {item.date}
                   </span>
                   <span className="flex items-center gap-1 text-accent font-semibold">
-                    Verified milestone <ArrowUpRight size={14} />
+                    Verified <ArrowUpRight size={13} />
                   </span>
                 </div>
               </TiltCard>
@@ -204,7 +204,7 @@ export default function AchievementsSection() {
       </div>
 
       {/* Row 2: Trio of Clean Modern Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
         {secondaryAchievements.map((item) => {
           const Icon = ICON_MAP[item.id] || Trophy
           const theme = ACCENT_THEMES[item.id] || ACCENT_THEMES['cgpa']
@@ -212,7 +212,7 @@ export default function AchievementsSection() {
           return (
             <TiltCard
               key={item.id}
-              className={`relative p-7 rounded-3xl border border-black/10 dark:border-white/10 shadow-md bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
+              className={`relative p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-xs bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
               style={{
                 background: theme.cardBg,
                 backgroundColor: 'var(--surface-color)'
@@ -224,28 +224,28 @@ export default function AchievementsSection() {
               />
 
               {/* Card Header */}
-              <div className="relative z-10 flex items-center justify-between mb-6">
-                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${theme.pillBg}`}>
+              <div className="relative z-10 flex items-center justify-between mb-4 sm:mb-6">
+                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold border ${theme.pillBg}`}>
                   {item.tag}
                 </span>
-                <div className={`p-2 rounded-xl bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 shadow-xs ${theme.pillText} group-hover:scale-110 transition-transform`}>
-                  <Icon size={18} />
+                <div className={`p-2 rounded-xl bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 shadow-xs ${theme.pillText} shrink-0`}>
+                  <Icon size={16} />
                 </div>
               </div>
 
               {/* Metric & Info */}
-              <div className="relative z-10 mb-6">
-                <div className={`text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r ${theme.statGradient} bg-clip-text text-transparent`}>
+              <div className="relative z-10 mb-4 sm:mb-6">
+                <div className={`text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r ${theme.statGradient} bg-clip-text text-transparent`}>
                   {item.stat}
                 </div>
-                <h4 className="text-lg font-bold text-text-main mt-2">
+                <h4 className="text-base sm:text-lg font-bold text-text-main mt-1.5 sm:mt-2">
                   {item.title}
                 </h4>
                 {renderDescription(item)}
               </div>
 
               {/* Bottom Meta */}
-              <div className="relative z-10 pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-xs text-secondary font-medium">
+              <div className="relative z-10 pt-3 sm:pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-secondary font-medium">
                 <span>{item.date || 'Ongoing'}</span>
                 <span className="font-semibold text-accent">{item.badge}</span>
               </div>
