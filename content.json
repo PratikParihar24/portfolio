@@ -36,6 +36,29 @@
             }
         ]
     },
+    "experience": [
+        {
+            "role": "Software Trainee (Full Stack Development)",
+            "company": "Dynamic Methods Solution",
+            "duration": "June – July 2026",
+            "type": "Internship / Trainee",
+            "points": [
+                "Built ApplyAgent, an AI-powered job application automation platform, using MERN stack and FastAPI-based RAG pipeline for semantic resume parsing and automated candidate outreach.",
+                "Designed and implemented a custom \"Candidate Intake\" module in Odoo 17 with a custom state machine and Many2one relational links to core HR models.",
+                "Independently owned full-stack architecture, backend API design, and frontend integration under a compressed timeline."
+            ],
+            "tech": [
+                "React",
+                "Node.js",
+                "FastAPI",
+                "Python",
+                "RAG",
+                "Odoo 17",
+                "MongoDB",
+                "REST APIs"
+            ]
+        }
+    ],
     "projects": [
         {
             "id": "parihar-brothers",

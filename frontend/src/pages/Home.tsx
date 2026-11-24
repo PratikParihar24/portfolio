@@ -1,5 +1,6 @@
 import HeroSection from '../components/sections/HeroSection'
 import AboutSection from '../components/sections/AboutSection'
+import ExperienceSection from '../components/sections/ExperienceSection'
 import ProjectsSection from '../components/sections/ProjectsSection'
 import SkillsSection from '../components/sections/SkillsSection'
 import AchievementsSection from '../components/sections/AchievementsSection'
@@ -9,7 +10,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useAppStore } from '../store/useAppStore'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 
-const SECTION_IDS = ['hero', 'about', 'projects', 'skills', 'achievements', 'contact']
+const SECTION_IDS = ['hero', 'about', 'experience', 'projects', 'skills', 'achievements', 'contact']
 
 function SectionTracker({ id, children }: { id: string, children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -73,6 +74,7 @@ export default function Home() {
       <div className="relative z-10 flex flex-col gap-16">
         <SectionTracker id="hero"><HeroSection /></SectionTracker>
         <SectionTracker id="about"><AboutSection /></SectionTracker>
+        <SectionTracker id="experience"><ExperienceSection /></SectionTracker>
         <SectionTracker id="projects"><ProjectsSection /></SectionTracker>
         <SectionTracker id="skills"><SkillsSection /></SectionTracker>
         <SectionTracker id="achievements"><AchievementsSection /></SectionTracker>
