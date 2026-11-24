@@ -45,7 +45,6 @@ export default function Scene() {
       {ready && (
         <Canvas
           dpr={[1, 1.5]}
-          frameloop="demand"
           camera={{ position: [0, 0, 5], fov: 45 }}
           gl={{ 
             alpha: true, 

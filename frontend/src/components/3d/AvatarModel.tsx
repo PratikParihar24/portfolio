@@ -10,67 +10,68 @@ export default function AvatarModel({ isMobile }: { isMobile?: boolean }) {
   
   const isTouchDevice = useRef(typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches)
   
-  // Safe perimeter far to the right, floating gently out of the way of central reading cards and CTAs
-  const targetPos = useRef(new THREE.Vector3(3.6, -1.8, -1.0))
+  // Starting position in safe right periphery
+  const targetPos = useRef(new THREE.Vector3(2.5, -1.0, -0.3))
   const moveTimer = useRef(0)
 
-  // Safe coordinates strictly bounded to outer peripheral zones
+  // Safe wandering zones: roams around the margins/edges without blocking center cards or action buttons
   const safeSpots = [
-    [3.6, -1.8, -1.0],   // Lower right peripheral
-    [3.8, -0.6, -1.0],   // Mid right outer
-    [3.5, 1.4, -1.0],    // Top right outer corner
-    [3.7, 0.4, -1.0],    // Upper right
+    [2.4, -0.9, -0.2],   // Mid-lower right margin
+    [2.7, 0.4, -0.3],    // Upper right margin
+    [2.3, 1.3, -0.2],    // Top right header corner
+    [2.6, -1.5, -0.3],   // Bottom right above buttons
+    [-2.6, 1.2, -0.4],   // Top left margin (away from content)
+    [2.8, -0.2, -0.2],   // Mid right outer
   ]
 
   useFrame((state, delta) => {
     if (!group.current) return
 
-    // 1. Slow, subtle perimeter wandering
+    // 1. Lively wandering logic
     moveTimer.current -= delta
     if (moveTimer.current <= 0) {
       const spot = safeSpots[Math.floor(Math.random() * safeSpots.length)]
       
       if (isMobile) {
-        // Keep well below view on mobile so it never covers buttons
-        targetPos.current.set(1.8, -4.5, -1.5)
+        targetPos.current.set(Math.random() > 0.5 ? 1.4 : -1.4, -3.2, -0.5)
       } else {
         targetPos.current.set(spot[0], spot[1], spot[2])
       }
       
-      // Wander leisurely every 6-10 seconds
-      moveTimer.current = 6 + Math.random() * 4
+      // Wander to a new spot every 3 to 6 seconds
+      moveTimer.current = 3.5 + Math.random() * 2.5
     }
 
-    // Gentle lerp glide
-    group.current.position.lerp(targetPos.current, 0.015)
+    // Smooth active glide
+    group.current.position.lerp(targetPos.current, 0.035)
 
-    // 2. Head follows cursor, but restrained so it doesn't whip around
+    // 2. Cursor tracking: eyes and body follow cursor actively
     if (!isTouchDevice.current) {
-      const targetX = (state.pointer.x * Math.PI) / 8
-      const targetY = (state.pointer.y * Math.PI) / 10
-      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetX, 0.05)
-      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -targetY, 0.05)
+      const targetX = (state.pointer.x * Math.PI) / 4.5
+      const targetY = (state.pointer.y * Math.PI) / 6
+      group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, targetX, 0.08)
+      group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, -targetY, 0.08)
     }
 
-    // Gentle blink
+    // Blinking animation
     if (eyeLeft.current && eyeRight.current) {
-      if (Math.random() > 0.992) {
+      if (Math.random() > 0.985) {
         eyeLeft.current.scale.y = 0.1
         eyeRight.current.scale.y = 0.1
       } else {
-        eyeLeft.current.scale.y = THREE.MathUtils.lerp(eyeLeft.current.scale.y, 1, 0.2)
-        eyeRight.current.scale.y = THREE.MathUtils.lerp(eyeRight.current.scale.y, 1, 0.2)
+        eyeLeft.current.scale.y = THREE.MathUtils.lerp(eyeLeft.current.scale.y, 1, 0.25)
+        eyeRight.current.scale.y = THREE.MathUtils.lerp(eyeRight.current.scale.y, 1, 0.25)
       }
     }
   })
 
   return (
-    <group ref={group} dispose={null} scale={isMobile ? 0.65 : 0.85}>
-      <Float speed={1.8} rotationIntensity={0.15} floatIntensity={0.35}>
-        <Trail width={0.35} length={3} color={new THREE.Color(0x22C55E)} attenuation={(t) => t * t}>
+    <group ref={group} dispose={null} scale={isMobile ? 0.75 : 0.95}>
+      <Float speed={2.5} rotationIntensity={0.25} floatIntensity={0.6}>
+        <Trail width={0.45} length={4} color={new THREE.Color(0x22C55E)} attenuation={(t) => t * t}>
           <group position={[0, 0, 0]}>
             {/* Main Body */}
-            <Sphere args={[0.4, 24, 24]}>
+            <Sphere args={[0.4, 28, 28]}>
               <meshStandardMaterial color="#ffffff" roughness={0.2} metalness={0.1} />
             </Sphere>
 
