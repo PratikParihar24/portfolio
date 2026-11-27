@@ -163,6 +163,17 @@ export default function ContactSection() {
           <span className="font-medium text-sm" style={{ color: 'var(--text-main)' }}>LinkedIn</span>
           <ExternalLink size={14} style={{ color: 'var(--secondary-color)' }} />
         </a>
+        <a 
+          href={contact.socialLinks.leetcode}
+          target="_blank" 
+          rel="noreferrer"
+          aria-label="LeetCode Profile"
+          className="flex items-center gap-2 px-5 py-3 rounded-xl transition-all hover:scale-105 hover:shadow-lg glass-panel"
+        >
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="LeetCode" className="w-5 h-5" />
+          <span className="font-medium text-sm" style={{ color: 'var(--text-main)' }}>LeetCode</span>
+          <ExternalLink size={14} style={{ color: 'var(--secondary-color)' }} />
+        </a>
       </motion.div>
     </section>
   )

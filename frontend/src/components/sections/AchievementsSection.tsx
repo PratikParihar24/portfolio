@@ -1,6 +1,6 @@
 import content from '../../data/content.json'
 import { motion } from 'framer-motion'
-import { Trophy, Rocket, GraduationCap, Award, Users, Sparkles, ArrowUpRight } from 'lucide-react'
+import { Trophy, Rocket, GraduationCap, Award, Users, Sparkles, ArrowUpRight, Code2 } from 'lucide-react'
 import TiltCard from '../ui/TiltCard'
 
 const ICON_MAP: Record<string, any> = {
@@ -9,6 +9,7 @@ const ICON_MAP: Record<string, any> = {
   'cgpa': GraduationCap,
   'merit-scholarship': Award,
   'hackathons': Users,
+  'leetcode': Code2,
 }
 
 const ACCENT_THEMES: Record<string, {
@@ -58,6 +59,14 @@ const ACCENT_THEMES: Record<string, {
     borderHover: 'hover:border-fuchsia-500/50',
     statGradient: 'from-fuchsia-600 via-pink-600 to-purple-700 dark:from-fuchsia-300 dark:via-pink-200 dark:to-purple-400',
     cardBg: 'radial-gradient(ellipse at top left, rgba(217, 70, 239, 0.08) 0%, transparent 60%)'
+  },
+  'leetcode': {
+    pillBg: 'bg-amber-500/10 dark:bg-amber-400/15 border-amber-500/30 text-amber-700 dark:text-amber-300',
+    pillText: 'text-amber-600 dark:text-amber-400',
+    glow: 'from-amber-500/20 via-yellow-500/10 to-transparent',
+    borderHover: 'hover:border-amber-500/50',
+    statGradient: 'from-amber-500 via-yellow-500 to-orange-600 dark:from-amber-300 dark:via-yellow-200 dark:to-amber-400',
+    cardBg: 'radial-gradient(ellipse at top right, rgba(245, 158, 11, 0.08) 0%, transparent 60%)'
   }
 }
 
@@ -101,6 +110,13 @@ export default function AchievementsSection() {
       return (
         <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">
           <span className="font-bold text-accent">GTU Ideathon & Sparkathon (Walmart) Finalist</span>. Led ideation, architecture, team coordination, and final jury pitch.
+        </p>
+      )
+    }
+    if (item.id === 'leetcode') {
+      return (
+        <p className="text-secondary text-xs sm:text-sm mt-1.5 leading-relaxed">
+          Solved <span className="font-bold text-accent">160+ DSA problems</span> covering arrays, trees, graphs, dynamic programming, and system algorithms.
         </p>
       )
     }
@@ -203,16 +219,17 @@ export default function AchievementsSection() {
         })}
       </div>
 
-      {/* Row 2: Trio of Clean Modern Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      {/* Row 2: Secondary Clean Modern Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {secondaryAchievements.map((item) => {
           const Icon = ICON_MAP[item.id] || Trophy
           const theme = ACCENT_THEMES[item.id] || ACCENT_THEMES['cgpa']
+          const isLink = Boolean(item.url)
 
           return (
             <TiltCard
               key={item.id}
-              className={`relative p-5 sm:p-7 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-xs bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
+              className={`relative p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-xs bg-surface transition-all duration-300 overflow-hidden flex flex-col justify-between group ${theme.borderHover}`}
               style={{
                 background: theme.cardBg,
                 backgroundColor: 'var(--surface-color)'
@@ -247,7 +264,19 @@ export default function AchievementsSection() {
               {/* Bottom Meta */}
               <div className="relative z-10 pt-3 sm:pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] sm:text-xs text-secondary font-medium">
                 <span>{item.date || 'Ongoing'}</span>
-                <span className="font-semibold text-accent">{item.badge}</span>
+                {isLink ? (
+                  <a 
+                    href={item.url} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="font-semibold text-accent flex items-center gap-1 hover:underline cursor-pointer"
+                  >
+                    <span>{item.badge}</span>
+                    <ArrowUpRight size={12} />
+                  </a>
+                ) : (
+                  <span className="font-semibold text-accent">{item.badge}</span>
+                )}
               </div>
             </TiltCard>
           )

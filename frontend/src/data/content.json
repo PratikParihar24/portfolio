@@ -354,6 +354,16 @@
             "title": "GTU Ideathon Finalist",
             "label": "Led end-to-end ideation, architectural design, team coordination, and final jury pitch at GTU Ideathon & Sparkathon (Walmart).",
             "date": "2024"
+        },
+        {
+            "id": "leetcode",
+            "stat": "160+",
+            "badge": "Problem Solving",
+            "tag": "Competitive Programming",
+            "title": "LeetCode Questions Solved",
+            "label": "Solved 160+ data structures & algorithms problems covering arrays, trees, dynamic programming, and graph theory.",
+            "url": "https://leetcode.com/u/PratikParihar24/",
+            "date": "Active"
         }
     ],
     "certifications": [
@@ -418,6 +428,7 @@
         "socialLinks": {
             "github": "https://github.com/PratikParihar24/",
             "linkedin": "https://www.linkedin.com/in/pratik-parihar-892a022a0/",
+            "leetcode": "https://leetcode.com/u/Pratik_Parihar24/",
             "email": "pratikparihar.me@gmail.com"
         }
     }

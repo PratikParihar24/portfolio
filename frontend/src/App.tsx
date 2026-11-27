@@ -49,6 +49,25 @@ const Linkedin = ({ size = 24, ...props }: { size?: number } & React.SVGProps<SV
   </svg>
 )
 
+const Leetcode = ({ size = 24, ...props }: { size?: number } & React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    <path d="m15 5 3 3" />
+    <path d="M12 21h9" />
+  </svg>
+)
+
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { AnimatePresence } from 'framer-motion'
@@ -202,6 +221,21 @@ const NavBar = () => {
           >
             <Linkedin size={18} />
           </a>
+          <a 
+            href="https://leetcode.com/u/Pratik_Parihar24/" 
+            target="_blank" 
+            rel="noreferrer"
+            aria-label="LeetCode"
+            title="LeetCode Profile"
+            className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105 hover:bg-accent/10 active:scale-95 cursor-pointer"
+            style={{ 
+              backgroundColor: 'var(--surface-color)', 
+              borderColor: 'var(--glass-border)',
+              color: 'var(--text-main)' 
+            }}
+          >
+            <Leetcode size={18} />
+          </a>
           <button 
             onClick={toggleTheme} 
             aria-label="Toggle dark mode"
@@ -302,6 +336,48 @@ const NavBar = () => {
                 >
                   <span>Search Menu</span>
                   <Command size={18} className="text-secondary" />
+                </button>
+              </div>
+
+              {/* Mobile Social Links */}
+              <div className="flex items-center gap-3 mt-auto pt-4 border-t" style={{ borderColor: 'var(--glass-border)' }}>
+                <a 
+                  href="https://github.com/PratikParihar24/" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  aria-label="GitHub"
+                  className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105"
+                  style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                >
+                  <Github size={18} />
+                </a>
+                <a 
+                  href="https://www.linkedin.com/in/pratik-parihar-892a022a0/" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                  className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105"
+                  style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a 
+                  href="https://leetcode.com/u/Pratik_Parihar24/" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  aria-label="LeetCode"
+                  className="w-10 h-10 rounded-full border flex items-center justify-center transition-all hover:scale-105"
+                  style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                >
+                  <Leetcode size={18} />
+                </a>
+                <button 
+                  onClick={toggleTheme} 
+                  aria-label="Toggle dark mode"
+                  className="w-10 h-10 rounded-full border flex items-center justify-center ml-auto transition-all hover:scale-105"
+                  style={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--glass-border)', color: 'var(--text-main)' }}
+                >
+                  {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
                 </button>
               </div>
             </motion.div>
